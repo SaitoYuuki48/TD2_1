@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "model.h"
 #include "WorldTransform.h"
+#include "Input.h"
 
 class Player {
 
@@ -20,8 +21,16 @@ class Player {
 
 	//モデル
 	Model* model_ = nullptr;
-
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
+
+	//キーボード入力
+	Input* input_ = nullptr;
+
+
+
+	//プログラムで使う変数
+	int chargeTime ;
+
 
 };

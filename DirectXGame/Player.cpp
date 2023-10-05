@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include "Player.h"
 #include <cassert>
+#include "ImGuiManager.h"
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//NULLポインタチェック
@@ -16,12 +17,45 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	worldTransform_.scale_ = {3.0f, 8.0f, 3.0f};
 	worldTransform_.rotation_ = {0.5f, -0.1f,-0.2f};
 	worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
+
+	//シングルトンインスタンスを取得する
+	input_ = Input::GetInstance();
+
+	//プログラムで使う変数の宣言
+	chargeTime = 0;
 }
 
 void Player::Update() {
 	worldTransform_.UpdateMatrix();
-	//行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
+
+	//ボタンを短押しと長押しでアニメーションさせる
+	if (input_->PushKey(DIK_SPACE)) {
+		chargeTime++;
+	} else {
+	
+	 if (chargeTime >= 1 && chargeTime <= 8) {
+			chargeTime = 5000;
+	 } else if (chargeTime >= 9) {
+			chargeTime = 8000;
+	 }
+	
+	}
+
+
+
+#ifdef _DEBUG
+
+	ImGui::Begin("Player");
+
+	ImGui::Text("%d", chargeTime);
+
+	ImGui::End();
+
+#endif //_DEBUG
+
+
+	////行列を定数バッファに転送
+	//worldTransform_.TransferMatrix();
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
