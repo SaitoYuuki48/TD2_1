@@ -64,6 +64,15 @@
     <Filter Include="ヘッダー ファイル\enemy">
       <UniqueIdentifier>{112bf431-5e26-45f0-a8d9-ff58cd659655}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\compute">
+      <UniqueIdentifier>{28d73248-2194-4b9d-9adc-9d9e8dcdfc9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\compute">
+      <UniqueIdentifier>{6b352444-7422-4925-a990-8186aaa86c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\worldTransformEX">
+      <UniqueIdentifier>{760e2404-d624-483c-8026-fc894b460b9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +95,12 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="compute.cpp">
+      <Filter>ソース ファイル\compute</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldTransformEX.cpp">
+      <Filter>ソース ファイル\worldTransformEX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="compute.h">
+      <Filter>ヘッダー ファイル\compute</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
