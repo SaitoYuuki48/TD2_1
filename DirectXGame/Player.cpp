@@ -41,7 +41,7 @@ void Player::Update() {
 	
 	}
 
-
+	//test
 
 #ifdef _DEBUG
 
