@@ -30,7 +30,11 @@ class Player {
 
 
 	//プログラムで使う変数
-	int chargeTime ;
+	int chargeTime ;//溜めてる時間を判定するタイマー
+	bool panchiFlag ;//溜めてるかのフラグ
+
+	bool shortFlag;
+	bool longFlag;
 
 
 };

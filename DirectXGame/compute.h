@@ -4,6 +4,9 @@
 #include <assert.h>
 #include <cmath>
 
+//加算
+Vector3 Add(Vector3 vector1, Vector3 vector2);
+
 // 減算
 Vector3 Subtract(Vector3 v1, Vector3 v2);
 
