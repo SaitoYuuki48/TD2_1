@@ -89,11 +89,6 @@ private: // メンバ変数
 	// 天球の3Dモデル
 	Model* modelSkydome_ = nullptr;//
 
-		// スカイドーム
-	Skydome* skydome_ = nullptr;
-	// 天球の3Dモデル
-	Model* modelSkydome_ = nullptr; //
-
 	// 地面
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
