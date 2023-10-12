@@ -19,7 +19,6 @@ public:
 	bool isDead_ = false;
 
 private:
-	void Approach();//接近
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// モデル

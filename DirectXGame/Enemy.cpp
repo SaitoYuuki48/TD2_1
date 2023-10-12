@@ -16,9 +16,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 	worldTransform_.Initialize();
 	textureHandle_ = TextureManager::Load("Enemy.png");
 	isDead_ = false;
-	/*worldTransform_.scale_ = {10.0f, 10.0f, 10.0f};
-	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
-	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};*/
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {//描画
@@ -28,13 +25,26 @@ void Enemy::Draw(ViewProjection& viewProjection) {//描画
 }
 
 void Enemy::Update() {// 更新
-
-	const float EnemySpeed = -0.3f;
-	Vector3 move = {0, 0, EnemySpeed};
+#pragma region 移動変数
+	const float EnemySpeedX = 0.0f;
+	const float EnemySpeedY = 0.0f;
+	const float EnemySpeedZ = -0.3f;
+#pragma endregion
+#pragma region 回転変数
+	const float RotateSpeedX = 15.0f;
+	const float RotateSpeedY = 15.0f;
+	const float RotateSpeedZ = 0.0f;
+#pragma endregion
+	//移動
+	Vector3 move = {EnemySpeedX, EnemySpeedY, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	float EnemyPos[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
+	//回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, RotateSpeedZ};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
 	// スケーリング行列を宣言
 	Matrix4x4 matScale;
 	matScale.m[0][0] = worldTransform_.scale_.x;
@@ -61,6 +71,11 @@ void Enemy::Update() {// 更新
 
 	worldTransform_.TransferMatrix();
 
+
+
+
+
+
 #ifdef _DEBUG
 
 	ImGui::Begin("Enemy");
@@ -74,7 +89,3 @@ void Enemy::Update() {// 更新
 #endif //_DEBUG
 }
 
-void Enemy::Approach() {
-	
-	
-}
