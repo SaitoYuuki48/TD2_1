@@ -47,7 +47,7 @@ void GameScene::Initialize() {
 	ground_->Initialize(modelGround_.get());
 
 	// 天球のモデル
-	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 	// 天球の生成
 	skydome_ = new Skydome();
 	// 天球の初期化
