@@ -10,7 +10,7 @@
 #include "WorldTransform.h"
 
 #include "Player.h"
-#include "Skydome.h"
+#include "Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -62,10 +62,8 @@ private: // メンバ変数
 
 	//自キャラ
 	Player* player_ = nullptr;
-	//スカイドーム
-	Skydome* skydome_ = nullptr;
-	// 天球の3Dモデル
-	Model* modelSkydome_ = nullptr;
+	//敵キャラ
+	Enemy* enemy_ = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
