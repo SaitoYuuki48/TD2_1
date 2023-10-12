@@ -53,7 +53,6 @@ void GameScene::Initialize() {
 
 
 #ifdef _DEBUG
-
 	// デバッグカメラの生成
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
