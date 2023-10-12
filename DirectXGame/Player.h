@@ -3,10 +3,11 @@
 #include "model.h"
 #include "WorldTransform.h"
 #include "Input.h"
+#include <Sprite.h>
 
 class Player {
 
-	public:
+public:
 
 	void Initialize(Model* model,uint32_t textureHandle);
 
@@ -14,7 +15,7 @@ class Player {
 
 	void Draw(ViewProjection& viewProjection);
 
-	private:
+private:
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -27,14 +28,10 @@ class Player {
 	//キーボード入力
 	Input* input_ = nullptr;
 
-
-
 	//プログラムで使う変数
 	int chargeTime ;//溜めてる時間を判定するタイマー
 	bool panchiFlag ;//溜めてるかのフラグ
 
 	bool shortFlag;
 	bool longFlag;
-
-
 };
