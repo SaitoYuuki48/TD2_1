@@ -76,7 +76,10 @@ void Player::Update() {
 	
 	}
 
-	//test
+	//長押しの挙動
+	if (longFlag == true) {
+	
+	}
 
 #ifdef _DEBUG
 
