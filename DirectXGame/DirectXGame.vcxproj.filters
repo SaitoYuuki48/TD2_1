@@ -73,6 +73,12 @@
     <Filter Include="ソース ファイル\worldTransformEX">
       <UniqueIdentifier>{760e2404-d624-483c-8026-fc894b460b9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\skydome">
+      <UniqueIdentifier>{2ae6db22-a1b6-45d4-bd30-f41c2ecf2b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\skydome">
+      <UniqueIdentifier>{d458b2ad-915f-4f9b-8449-8cc93fb86b89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="WorldTransformEX.cpp">
       <Filter>ソース ファイル\worldTransformEX</Filter>
+    </ClCompile>
+    <ClCompile Include="Skydome.cpp">
+      <Filter>ソース ファイル\skydome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="compute.h">
       <Filter>ヘッダー ファイル\compute</Filter>
+    </ClInclude>
+    <ClInclude Include="Skydome.h">
+      <Filter>ヘッダー ファイル\skydome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
