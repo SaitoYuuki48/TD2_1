@@ -70,7 +70,7 @@ private: // メンバ変数
 	// モデル
 	Model* model_ = nullptr;
 
-		// デバッグカメラ有効
+	// デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_; 
@@ -98,8 +98,4 @@ private: // メンバ変数
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
-
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
 };

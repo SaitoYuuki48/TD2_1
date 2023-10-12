@@ -68,10 +68,10 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	//
+	//デバッグカメラの更新
 	debugCamera_->Update();
 	
-	#ifdef _DEBUG
+#ifdef _DEBUG
 
 	if (input_->TriggerKey(DIK_C) && isDebugCameraActive_ == false) {
 		isDebugCameraActive_ = true;
@@ -101,7 +101,7 @@ void GameScene::Update() {
 	skydome_->Update();
 	//床の更新
 	ground_->Update();
-	//デバッグカメラの更新
+	
 }
 
 void GameScene::Draw() {
