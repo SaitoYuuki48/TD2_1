@@ -3,12 +3,15 @@
 #include <cassert>
 #include "AxisIndicator.h"
 
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete sprite_;
 	//自キャラの解放
 	delete player_;
+	//天球の解放
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -33,6 +36,7 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
+	//敵キャラの生成
 
 	// 敵の生成
 	enemy_ = new Enemy();
@@ -58,6 +62,13 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 #endif // _DEBUG
+	//天球のモデル
+	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
+	//天球の生成
+	skydome_ = new Skydome();
+	//天球の初期化
+	skydome_->Initialize(modelSkydome_);
+
 }
 
 void GameScene::Update() {
@@ -94,6 +105,8 @@ void GameScene::Update() {
 	
 	// 地面の更新
 	ground_->Update();
+	//天球の更新
+	skydome_->Update();
 }
 
 void GameScene::Draw() {
@@ -131,6 +144,9 @@ void GameScene::Draw() {
 
 	// 地面の描画
 	ground_->Draw(viewProjection_);
+
+	//天球の描画
+	skydome_->Draw(viewProjection_);
 
 	/*for (Enemy* enemy : enemys_) {
 		enemy->Draw(viewProjection_);
