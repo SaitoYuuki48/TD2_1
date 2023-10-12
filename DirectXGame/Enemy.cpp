@@ -24,7 +24,7 @@ void Enemy::Draw(ViewProjection& viewProjection) {//描画
 	}
 }
 
-void Enemy::Update() {/// 更新
+void Enemy::Update() {//// 更新
 #pragma region 移動変数
 	const float EnemySpeedX = 0.0f;
 	const float EnemySpeedY = 0.0f;
