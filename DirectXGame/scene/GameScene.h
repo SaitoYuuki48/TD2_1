@@ -59,14 +59,18 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	// テクスチャハンドル
+	/// <summary>
+	/// ゲームシーン用
+	/// </summary>
+
+	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 	// スプライト
 	Sprite* sprite_ = nullptr;
 	// モデル
 	Model* model_ = nullptr;
 
-		// デバッグカメラ有効
+	// デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_; 
@@ -80,18 +84,13 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	// 敵キャラ
 	Enemy* enemy_ = nullptr;
-
-		// スカイドーム
+	//スカイドーム
 	Skydome* skydome_ = nullptr;
 	// 天球の3Dモデル
-	Model* modelSkydome_ = nullptr; //
+	Model* modelSkydome_ = nullptr;//
 
 	// 地面
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
-
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
 };
