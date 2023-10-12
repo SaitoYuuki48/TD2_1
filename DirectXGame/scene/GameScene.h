@@ -65,7 +65,7 @@ private: // メンバ変数
 	//スカイドーム
 	Skydome* skydome_ = nullptr;
 	// 天球の3Dモデル
-	Model* modelSkydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;//
 
 	/// <summary>
 	/// ゲームシーン用
