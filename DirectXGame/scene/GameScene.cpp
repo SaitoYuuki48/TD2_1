@@ -45,6 +45,7 @@ void GameScene::Update() {
 	player_->Update();
 	//敵キャラの更新
 	enemy_->Update();
+	
 
 }
 
