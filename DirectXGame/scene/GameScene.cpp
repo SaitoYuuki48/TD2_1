@@ -2,12 +2,15 @@
 #include "TextureManager.h"
 #include <cassert>
 
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete sprite_;
 	//自キャラの解放
 	delete player_;
+	//天球の解放
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -32,11 +35,19 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
+	//敵キャラの生成
 
 	// 敵の生成
 	enemy_ = new Enemy();
 	// 敵の初期化
 	enemy_->Initialize(model_, textureHandle_);
+
+	//天球のモデル
+	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
+	//天球の生成
+	skydome_ = new Skydome();
+	//天球の初期化
+	skydome_->Initialize(modelSkydome_);
 
 }
 
@@ -45,8 +56,8 @@ void GameScene::Update() {
 	player_->Update();
 	//敵キャラの更新
 	enemy_->Update();
-	
-
+	//天球の更新
+	skydome_->Update();
 }
 
 void GameScene::Draw() {
@@ -81,6 +92,9 @@ void GameScene::Draw() {
 
 	//敵の描画
 	enemy_->Draw(viewProjection_);
+
+	//天球の描画
+	skydome_->Draw(viewProjection_);
 
 	/*for (Enemy* enemy : enemys_) {
 		enemy->Draw(viewProjection_);
