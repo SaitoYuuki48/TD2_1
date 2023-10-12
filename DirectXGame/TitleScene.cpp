@@ -2,13 +2,20 @@
 
 TitleScene::TitleScene() {}
 
-TitleScene::~TitleScene() {}
+TitleScene::~TitleScene() { delete spriteTitle_; }
 
 void TitleScene::Initialize() 
 {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	// テクスチャ
+	uint32_t textureTitle = TextureManager::Load("resources/title.png");
+
+	// スプライト生成
+	spriteTitle_ =
+	    Sprite::Create(textureTitle, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 }
 
 void TitleScene::Update() {
@@ -55,6 +62,8 @@ void TitleScene::Draw()
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	spriteTitle_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
