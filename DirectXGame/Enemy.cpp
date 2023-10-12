@@ -28,7 +28,9 @@ void Enemy::Update() {//// 更新
 #pragma region 移動変数
 	const float EnemySpeedX = 0.0f;
 	const float EnemySpeedY = 0.0f;
-	const float EnemySpeedZ = -0.3f;
+	const float EnemySpeedZ = -0.2f;
+	float UpMoveSpeed = 0.07f;
+	float DownMoveSpeed = -0.1f;
 #pragma endregion
 #pragma region 回転変数
 	const float RotateSpeedX = 15.0f;
@@ -50,6 +52,7 @@ void Enemy::Update() {//// 更新
 
 	worldTransform_.TransferMatrix();
 
+
 #ifdef _DEBUG
 
 	ImGui::Begin("Enemy");
@@ -61,5 +64,15 @@ void Enemy::Update() {//// 更新
 	worldTransform_.translation_.z = EnemyPos[2];
 
 #endif //_DEBUG
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
+	}
+	//下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+
 }
 
