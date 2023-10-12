@@ -29,9 +29,6 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//長短押しのフラグ
 	shortFlag = false;
 	longFlag = false;
-
-	
-
 }
 
 void Player::Update() {
