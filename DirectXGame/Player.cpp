@@ -3,6 +3,7 @@
 #include "compute.h"
 #include <cassert>
 #include "ImGuiManager.h"
+#include "math.h"
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//NULLポインタチェック
@@ -67,6 +68,8 @@ void Player::Update() {
 	//溜めてないときは初期位置に座標を設定(後でconstで設定するといいかも)
 	 worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
 	}
+
+	
 
 	//短押しの挙動
 	if (shortFlag == true) {

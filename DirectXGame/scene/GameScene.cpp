@@ -17,7 +17,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("sample.png");
+	textureHandle_ = TextureManager::Load("sample.png");//プレイヤー
 	//スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	//モデル生成
@@ -33,11 +33,19 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
 
+	// 敵の生成
+	enemy_ = new Enemy();
+	// 敵の初期化
+	enemy_->Initialize(model_, textureHandle_);
+
 }
 
 void GameScene::Update() {
 	//自キャラの更新
 	player_->Update();
+	//敵キャラの更新
+	enemy_->Update();
+
 }
 
 void GameScene::Draw() {
@@ -69,6 +77,13 @@ void GameScene::Draw() {
 	
 	//自キャラの描画
 	player_->Draw(viewProjection_);
+
+	//敵の描画
+	enemy_->Draw(viewProjection_);
+
+	/*for (Enemy* enemy : enemys_) {
+		enemy->Draw(viewProjection_);
+	}*/
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
