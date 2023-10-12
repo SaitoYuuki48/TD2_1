@@ -54,7 +54,11 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	// テクスチャハンドル
+	/// <summary>
+	/// ゲームシーン用
+	/// </summary>
+
+	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 	// スプライト
 	Sprite* sprite_ = nullptr;
@@ -70,8 +74,13 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	// 敵キャラ
 	Enemy* enemy_ = nullptr;
+	//スカイドーム
+	Skydome* skydome_ = nullptr;
+	// 天球の3Dモデル
+	Model* modelSkydome_ = nullptr;//
 
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
+	// 地面
+	std::unique_ptr<Ground> ground_;
+	// 3Dモデル
+	std::unique_ptr<Model> modelGround_;
 };
