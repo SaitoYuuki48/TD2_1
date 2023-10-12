@@ -37,6 +37,32 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	// 敵の初期化
 	enemy_->Initialize(model_, textureHandle_);
+
+	// 地面
+	//   3Dモデルの生成
+	modelGround_.reset(Model::CreateFromOBJ("Ground", true));
+	// 地面の生成
+	ground_ = std::make_unique<Ground>();
+	// 地面の初期化
+	ground_->Initialize(modelGround_.get());
+
+	// 天球のモデル
+	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_);
+
+#ifdef _DEBUG
+
+	// デバッグカメラの生成
+	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
+
+	// 軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+#endif // _DEBUG
 }
 
 void GameScene::Update() {
