@@ -14,7 +14,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
-	textureHandle_ = TextureManager::Load("Enemy.png");
+	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
 }
 
