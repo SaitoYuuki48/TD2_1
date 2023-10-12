@@ -8,9 +8,13 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "DebugCamera.h"
+
+#include <memory>
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Ground.h"
 
 /// <summary>
 /// ゲームシーン
@@ -60,10 +64,20 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	// デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+	// デバッグカメラ
+	std::unique_ptr<DebugCamera> debugCamera_; 
+
 	//自キャラ
 	Player* player_ = nullptr;
 	//敵キャラ
 	Enemy* enemy_ = nullptr;
+
+	// 地面
+	std::unique_ptr<Ground> ground_;
+	// 3Dモデル
+	std::unique_ptr<Model> modelGround_;
 
 	/// <summary>
 	/// ゲームシーン用
