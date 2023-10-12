@@ -51,6 +51,12 @@ void GameScene::Initialize() {
 	// 地面の初期化
 	ground_->Initialize(modelGround_.get());
 
+	// 天球のモデル
+	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_);
 
 #ifdef _DEBUG
 
@@ -62,13 +68,6 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 #endif // _DEBUG
-	//天球のモデル
-	modelSkydome_ = Model::CreateFromOBJ("Haikyo", true);
-	//天球の生成
-	skydome_ = new Skydome();
-	//天球の初期化
-	skydome_->Initialize(modelSkydome_);
-
 }
 
 void GameScene::Update() {
