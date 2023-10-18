@@ -15,6 +15,10 @@ public:
 
 	void Draw(ViewProjection& viewProjection);
 
+	void OnCollision();
+
+	Vector3 GetWorldPosition();
+
 	// デスフラグ
 	bool isDead_ = false;
 

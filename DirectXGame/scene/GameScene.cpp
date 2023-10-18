@@ -101,7 +101,8 @@ void GameScene::Update() {
 	skydome_->Update();
 	//床の更新
 	ground_->Update();
-	
+	//当たり判定
+	GameScene::CheakAllCollisions();
 }
 
 void GameScene::Draw() {
@@ -163,4 +164,34 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::CheakAllCollisions() { 
+	//変数の宣言
+	Vector3 vecPlayer, vecEnemy;
+
+	//２間点の距離
+	float posAB;
+
+	//敵の半径
+	float enemyRadius = 10.0f;
+
+	//殴る当たり判定の半径
+	float hitRadius = 10.0f;
+
+	//敵の座標を変数に入れる
+	vecEnemy = enemy_->GetWorldPosition();
+
+	//ヒットボックスの座標を変数に入れる
+	vecPlayer = player_->GetWorldPosition();
+
+	//２間点の距離を求める
+	posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
+	        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
+	        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
+
+	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
+		enemy_->OnCollision();
+	}
+
 }
