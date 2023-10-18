@@ -3,6 +3,7 @@
 #include "model.h"
 #include "WorldTransform.h"
 #include "Input.h"
+#include <Sprite.h>
 
 class Player {
 
