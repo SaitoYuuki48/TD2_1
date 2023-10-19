@@ -38,9 +38,9 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandle_);
 
 	// 敵の生成
-	enemy_ = new Enemy();
+	//enemy_ = new Enemy();
 	// 敵の初期化
-	enemy_->Initialize(model_);
+	//enemy_->Initialize(model_);
 
 	// ヒットボックス
 	// 3Dモデルの生成
@@ -94,6 +94,8 @@ void GameScene::Initialize() {
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 #endif // _DEBU
+
+	EnemySpawn();
 }
 
 void GameScene::Update() {
@@ -133,10 +135,11 @@ void GameScene::Update() {
 	// 敵キャラの更新
 	//enemy_->Update();
 	
-		// 敵キャラの更新
+	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
 	}
+
 
 	//天球の更新
 	skydome_->Update();
@@ -146,17 +149,13 @@ void GameScene::Update() {
 	hitBox_->Update();
 	noHitBox_->Update();
 
-		// デスフラグ
-	enemys_.remove_if([](Enemy* enemy) {
-		if (enemy->IsDead()) {
-			delete enemy;
-			return true;
-		}
-		return false;
-	});
+	RandSpawn();
+
+
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
+
 }
 
 void GameScene::Draw() {
@@ -190,7 +189,12 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 
 	// 敵の描画
-	enemy_->Draw(viewProjection_);
+	//enemy_->Draw(viewProjection_);
+
+	// 敵キャラの更新
+	for (Enemy* enemy : enemys_) {
+		enemy->Draw(viewProjection_);
+	}
 
 	//天球の描画
 	skydome_->Draw(viewProjection_);
@@ -246,25 +250,31 @@ void GameScene::CheakAllCollisions() {
 	cheakPanchi = player_->CheakPanchi();
 
 	//敵の座標を変数に入れる
-	vecEnemy = enemy_->GetWorldPosition();
+	for (Enemy* enemy : enemys_) {
+	vecEnemy = enemy->GetWorldPosition();
 
 	//ヒットボックスの座標を変数に入れる
 	vecPlayer = hitBox_->GetWorldPosition();
 
-	//２間点の距離を求める
-	posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
-	        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
-	        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
+	  //２間点の距離を求める
+	  posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
+	          (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
+	          (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
+	  
+	  if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
+	      changeHitbox = true;//ヒットボックス色切り替え
+	  	if (cheakPanchi == 1) {
+	  	enemy->OnCollision();
+	  	}
+	  	
+	  } else {
+	  	changeHitbox = false;//ヒットボックス色切り替え
+	  }
 
-	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
-	    changeHitbox = true;//ヒットボックス色切り替え
-		if (cheakPanchi == 1) {
-		enemy_->OnCollision();
-		}
-		
-	} else {
-		changeHitbox = false;//ヒットボックス色切り替え
 	}
+	
+
+
 
 }
 
@@ -284,9 +294,15 @@ void GameScene::RandSpawn() {
 		number = static_cast<float>(rand() % 10 + 1);
 
 		SpawnTime++;
-		if (SpawnTime > 5 && number == 1) {
+
+		if (SpawnTime > 50 && number == 1) {
 			EnemySpawn();
 			SpawnTime = 0;
+
+			// デスフラグ
+			enemys_.remove(enemy);
+
+			break;
 		}
 		}
 	}

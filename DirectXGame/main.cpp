@@ -83,8 +83,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		switch (sceneNo) {
 		case SceneType::kTitle:
-			titleScene->Initialize();
-			gameScene->Initialize();
 			titleScene->Update();
 
 			if (titleScene->IsSceneEnd()) {
