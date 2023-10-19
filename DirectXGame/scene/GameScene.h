@@ -18,6 +18,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include "HitBox.h"
+#include "NoHitBox.h"
 #include "Camera.h"
 
 /// <summary>
@@ -97,6 +98,11 @@ private: // メンバ変数
 	std::unique_ptr<HitBox> hitBox_;
 	//ヒットボックス(当たり判定)のモデル
 	std::unique_ptr<Model> modelHitBox_;
+
+	//当たっていないときのヒットボックス
+	std::unique_ptr<NoHitBox> noHitBox_;
+	// ヒットボックス(当たり判定)のモデル
+	std::unique_ptr<Model> modelNoHitBox_;
 
 	//スカイドーム
 	Skydome* skydome_ = nullptr;

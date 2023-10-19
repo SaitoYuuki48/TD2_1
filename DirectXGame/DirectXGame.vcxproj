@@ -115,6 +115,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NoHitBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Skydome.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="NoHitBox.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="scene\GameScene.h" />
