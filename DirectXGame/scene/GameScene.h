@@ -50,6 +50,9 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	//敵にパンチが当たってるか判定する関数
+	void CheakAllCollisions();
+
 	bool isSceneEnd = false;
 
 	bool IsSceneEnd() { return isSceneEnd; }

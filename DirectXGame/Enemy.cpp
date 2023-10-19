@@ -24,6 +24,7 @@ void Enemy::Draw(ViewProjection& viewProjection) {//描画
 	}
 }
 
+
 void Enemy::Update() {//// 更新
 #pragma region 移動変数
 	const float EnemySpeedX = 0.0f;
@@ -76,3 +77,15 @@ void Enemy::Update() {//// 更新
 
 }
 
+
+void Enemy::OnCollision() { isDead_ = true; }
+
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 worldPos;
+
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+
+	return worldPos;
+}
