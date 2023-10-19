@@ -29,6 +29,11 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//長短押しのフラグ
 	shortFlag = false;
 	longFlag = false;
+	cheakPanchi = 0;//数字版のフラグ
+
+	//タイマー関連
+	panchiTimer = 0;
+
 }
 
 void Player::Update() {
@@ -41,14 +46,18 @@ void Player::Update() {
 	} else {
 	
 		panchiFlag = false;
-
+		//タイマーでパンチの種類を判定
 	 if (chargeTime >= 1 && chargeTime <= 8) {
-			shortFlag = true;
+		 cheakPanchi=1;
+		 //cheakPanchi = 0;   
+		 chargeTime = 0;
 	 } else if (chargeTime >= 9) {
-			longFlag = true;
+			cheakPanchi=2;
+		 chargeTime = 0;
 	 }
 	
 	}
+	
 
 	//長押ししているときのモーション
 	if (panchiFlag == true) {
@@ -66,22 +75,39 @@ void Player::Update() {
 	 worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
 	}
 
-	
-
-	//短押しの挙動
-	if (shortFlag == true) {
-	
+	if (cheakPanchi != 0) {
+	 panchiTimer++;
+	 if (panchiTimer > 1) {
+		panchiTimer = 0;
+		cheakPanchi = 0;
+	 }
 	}
 
-	//長押しの挙動
-	if (longFlag == true) {
 	
-	}
+
+	////短押しの挙動
+	//if (shortFlag == true) {
+	// cheakPanchi = 1;
+	// if (shortFlag == true && cheakPanchi == 1) {
+	//	shortFlag = false;
+	//	cheakPanchi = 0;
+  	// }
+	//}
+	//
+	////長押しの挙動
+	//if (longFlag == true) {
+	// cheakPanchi = 2;
+	// if (longFlag == true && cheakPanchi == 2) {
+	//		longFlag = false;
+	//		cheakPanchi = 0;
+	// }
+	//}
 
 #ifdef _DEBUG
 
 	ImGui::Begin("Player");
 
+	ImGui::Text("%d", cheakPanchi);
 	ImGui::Text("%d", chargeTime);
 	ImGui::Text("SHORT%lf:LONG%lf", shortFlag,longFlag);
 
@@ -97,6 +123,16 @@ void Player::Update() {
 void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
+
+int Player::CheakPanchi() {
+	int flag;
+
+	flag = cheakPanchi;
+
+	return flag;
+}
+
+
 
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos;

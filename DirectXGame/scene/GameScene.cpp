@@ -208,6 +208,11 @@ void GameScene::CheakAllCollisions() {
 	//殴る当たり判定の半径
 	float hitRadius = 4.0f;
 
+	//パンチの種類を判別する変数
+	int cheakPanchi;
+
+	cheakPanchi = player_->CheakPanchi();
+
 	//敵の座標を変数に入れる
 	vecEnemy = enemy_->GetWorldPosition();
 
@@ -219,7 +224,7 @@ void GameScene::CheakAllCollisions() {
 	        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
 	        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
 
-	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
+	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)&&cheakPanchi==1) {
 		enemy_->OnCollision();
 
 	}
