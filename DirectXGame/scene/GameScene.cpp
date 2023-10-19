@@ -203,7 +203,7 @@ void GameScene::CheakAllCollisions() {
 	float posAB;
 
 	//敵の半径
-	float enemyRadius = 4.0f;
+	float enemyRadius = 8.0f;
 
 	//殴る当たり判定の半径
 	float hitRadius = 4.0f;
