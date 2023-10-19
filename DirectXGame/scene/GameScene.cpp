@@ -8,6 +8,10 @@ GameScene::~GameScene() {
 	delete sprite_;
 	// 自キャラの解放
 	delete player_;
+	//敵キャラの解放
+	delete enemy_;
+	//天球の解放
+	delete skydome_;
 }
 
 void GameScene::Initialize() {
@@ -69,8 +73,6 @@ void GameScene::Initialize() {
 
 #ifdef _DEBUG
 
-	//カメラの更新
-	camera_->Update();
 
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
@@ -83,6 +85,9 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+	// カメラの更新
+	camera_->Update();
 	//デバッグカメラの更新
 	debugCamera_->Update();
 	
@@ -198,16 +203,16 @@ void GameScene::CheakAllCollisions() {
 	float posAB;
 
 	//敵の半径
-	float enemyRadius = 10.0f;
+	float enemyRadius = 4.0f;
 
 	//殴る当たり判定の半径
-	float hitRadius = 10.0f;
+	float hitRadius = 4.0f;
 
 	//敵の座標を変数に入れる
 	vecEnemy = enemy_->GetWorldPosition();
 
 	//ヒットボックスの座標を変数に入れる
-	vecPlayer = player_->GetWorldPosition();
+	vecPlayer = hitBox_->GetWorldPosition();
 
 	//２間点の距離を求める
 	posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
@@ -216,6 +221,7 @@ void GameScene::CheakAllCollisions() {
 
 	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
 		enemy_->OnCollision();
+
 	}
 
 }
