@@ -98,22 +98,22 @@ void Enemy::Update() {//// 更新
 	
 
 	//敵撃破後のランダム生成処理
-	if (isDead_ == true)
-	{
+	/*if (isDead_ == true)
+	{*/
 		SpawnTime++;
 		if (SpawnTime < 20) {
 			worldTransform_.Initialize();
-			for (i = 0; i < 10; i++) {
+			/*for (i = 0; i < 10; i++) {*/
 				number = static_cast<float> (rand());
 				number = static_cast<float> (rand() % 3 - 1);
-			}
+			/*}*/
 		}
-		if (SpawnTime > 21&&number==3)
+		/*if (SpawnTime > 21&&number==3)
 		{
 			isDead_ = false;
 			SpawnTime = 0;
-		}
-	}
+		}*/
+	/*}*/
 }
 
 
