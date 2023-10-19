@@ -95,6 +95,7 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 #endif // _DEBU
 
+	//敵の生成
 	EnemySpawn();
 }
 
