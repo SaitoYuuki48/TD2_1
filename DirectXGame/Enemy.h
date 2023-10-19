@@ -2,6 +2,7 @@
 #include "WorldTransform.h"
 #include "Model.h"
 #include "Input.h"
+#include<time.h>
 
 
 class Enemy {
