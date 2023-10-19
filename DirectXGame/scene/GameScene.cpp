@@ -38,8 +38,17 @@ void GameScene::Initialize() {
 	// 敵の初期化
 	enemy_->Initialize(model_, textureHandle_);
 
-		// 地面
-	//   3Dモデルの生成
+	// ヒットボックス
+	// 3Dモデルの生成
+	modelHitBox_.reset(Model::CreateFromOBJ("hitBox", true));
+	modelHitBox_->SetMaterialAlpha("hitBox", 0.3f);
+	// ヒットボックスの生成
+	hitBox_ = std::make_unique<HitBox>();
+	// ヒットボックスの初期化
+	hitBox_->Initialize(modelHitBox_.get());
+
+	// 地面
+	// 3Dモデルの生成
 	modelGround_.reset(Model::CreateFromOBJ("Ground", true));
 	// 地面の生成
 	ground_ = std::make_unique<Ground>();
@@ -53,18 +62,24 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_);
 
+	//カメラの生成
+	camera_ = std::make_unique<Camera>();
+	//カメラの初期化
+	camera_->Initialize();
+
 #ifdef _DEBUG
 
-	// デバッグカメラの生成
+	//カメラの更新
+	camera_->Update();
+
+	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-#endif // _DEBUG
-	
-
+#endif // _DEBU
 }
 
 void GameScene::Update() {
@@ -88,8 +103,11 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	} else {
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = camera_->GetViewProjection().matView;
+		viewProjection_.matProjection = camera_->GetViewProjection().matProjection;
+		// ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+		
 	}
 #endif // _DEBUG
 
@@ -101,6 +119,9 @@ void GameScene::Update() {
 	skydome_->Update();
 	//床の更新
 	ground_->Update();
+	// ヒットボックス
+	hitBox_->Update();
+	
 	//当たり判定
 	GameScene::CheakAllCollisions();
 }
@@ -143,6 +164,9 @@ void GameScene::Draw() {
 
 	//床の描画
 	ground_->Draw(viewProjection_);
+
+	//ヒットボックス
+	hitBox_->Draw(viewProjection_);
 
 	/*for (Enemy* enemy : enemys_) {
 	    enemy->Draw(viewProjection_);

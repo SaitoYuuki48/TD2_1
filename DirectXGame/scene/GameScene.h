@@ -14,9 +14,11 @@
 
 #include "Player.h"
 #include "Enemy.h"
-#include"Scene.h"
+#include "Scene.h"
 #include "Skydome.h"
 #include "Ground.h"
+#include "HitBox.h"
+#include "Camera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -78,6 +80,9 @@ private: // メンバ変数
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_; 
 
+	// フォローカメラ
+	std::unique_ptr<Camera> camera_;
+
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -87,6 +92,12 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	// 敵キャラ
 	Enemy* enemy_ = nullptr;
+
+	//ヒットボックス(当たり判定)
+	std::unique_ptr<HitBox> hitBox_;
+	//ヒットボックス(当たり判定)のモデル
+	std::unique_ptr<Model> modelHitBox_;
+
 	//スカイドーム
 	Skydome* skydome_ = nullptr;
 	// 天球の3Dモデル

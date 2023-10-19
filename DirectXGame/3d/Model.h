@@ -117,6 +117,12 @@ public: // メンバ関数
 	/// <returns>メッシュコンテナ</returns>
 	inline const std::vector<Mesh*>& GetMeshes() { return meshes_; }
 
+	// アルファ値をいじるため追加
+	void SetMaterialAlpha(std::string name, float alpha) {
+		materials_[name]->alpha_ = alpha;
+		materials_[name]->Update();
+	}
+
 private: // メンバ変数
 	// 名前
 	std::string name_;
