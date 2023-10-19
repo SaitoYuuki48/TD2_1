@@ -18,6 +18,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include "HitBox.h"
+#include "Camera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -78,6 +79,9 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_; 
+
+	// フォローカメラ
+	std::unique_ptr<Camera> camera_;
 
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
