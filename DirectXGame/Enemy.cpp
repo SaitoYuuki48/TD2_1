@@ -14,6 +14,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
+	// スケール
+	Vector3 Scale = {4, 4, 4};
+	worldTransform_.scale_ = Scale;
 	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
 	// 乱数の初期化(シード値の設定)
@@ -32,31 +35,33 @@ void Enemy::Draw(ViewProjection& viewProjection) {//描画
 void Enemy::Update() {//// 更新
 
 #pragma region 移動変数
-	const float EnemySpeedX = 0.0f;
-	const float EnemySpeedY = 0.0f;
-	const float EnemySpeedZ = -0.2f;
-	float UpMoveSpeed = 0.07f;
-	float DownMoveSpeed = -0.1f;
+	const float EnemySpeedZ = -0.5f;
+	float UpMoveSpeed = 0.5f;
+	float DownMoveSpeed = -0.9f;
 #pragma endregion
 #pragma region 回転変数
-	const float RotateSpeedX = 15.0f;
-	const float RotateSpeedY = 15.0f;
-	const float RotateSpeedZ = 0.0f;
+	const float RotateSpeedX = 0.0f;
+	const float RotateSpeedY = 0.0f;
 #pragma endregion
+
 	//移動
-	Vector3 move = {EnemySpeedX, EnemySpeedY, EnemySpeedZ};
+	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	float EnemyPos[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
 	//回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, RotateSpeedZ};
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY,0};
 	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+	
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
+
 	worldTransform_.TransferMatrix();
+
+	float EnemyDebug[] = {static_cast<float>(SpawnTime), static_cast<float>(number)};
 
 
 #ifdef _DEBUG
@@ -71,20 +76,19 @@ void Enemy::Update() {//// 更新
 
 #endif //_DEBUG
 
-	float EnemyDebug[] = {
-	    static_cast<float>(SpawnTime), static_cast<float>(number)};
+	
 
 #ifdef _DEBUG
+	
 
 	ImGui::Begin("EnemySpawn");
-	ImGui::SliderFloat2("EnemyPos", EnemyDebug, 100.0f, -100.0f);
+	ImGui::Text("%f,%f", EnemyDebug,number);
+	ImGui::Text("%f\n,%f", EnemyDebug,SpawnTime);
 	ImGui::End();
-	float SpawnTime = EnemyDebug[0];
-	float number = EnemyDebug[1];
-	
+	/*SpawnTime = static_cast<float>(EnemyDebug[0]);
+	number = static_cast<float> (EnemyDebug[1]);*/
 
 	
-
 #endif //_DEBUG
 
 	// 上に行く
@@ -101,15 +105,15 @@ void Enemy::Update() {//// 更新
 	//敵撃破後のランダム生成処理
 	if (isDead_ == true)
 	{
+		worldTransform_.translation_.z = 4;
+		number = static_cast<float>(rand());
+		number = static_cast<float>(rand() % 10 + 1);
+		
 		SpawnTime++;
-		if (SpawnTime < 20) {
-			worldTransform_.Initialize();
-				number = static_cast<float> (rand());
-				number = static_cast<float> (rand() % 3 - 1);
-		}
-		if (SpawnTime > 21&&number==3)
+		if (SpawnTime > 5&&number==1)
 		{
 			isDead_ = false;
+			
 			SpawnTime = 0;
 		}
 	}

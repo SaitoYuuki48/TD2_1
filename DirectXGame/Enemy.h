@@ -26,8 +26,8 @@ public:
 
 	// 乱数を生成して変数に代入
 	int i = 0;
-	int number = 0;
-	int SpawnTime = 0;
+	float number = 0;
+	float SpawnTime = 0;
 	
 
 
