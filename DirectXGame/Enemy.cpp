@@ -16,6 +16,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 	worldTransform_.Initialize();
 	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
+	// 乱数の初期化(シード値の設定)
+	unsigned int Time = static_cast<unsigned int>(time(nullptr));
+	srand((unsigned)time(NULL));
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {//描画
@@ -66,6 +69,20 @@ void Enemy::Update() {//// 更新
 
 #endif //_DEBUG
 
+	float EnemyDebug[] = {
+	    static_cast<float>( SpawnTime, number),
+	    worldTransform_.translation_.z};
+
+#ifdef _DEBUG
+
+	ImGui::Begin("EnemySpawn");
+	ImGui::SliderFloat3("EnemyPos", EnemyDebug, 100.0f, -100.0f);
+	ImGui::End();
+
+	
+
+#endif //_DEBUG
+
 	// 上に行く
 	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
 		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
@@ -74,7 +91,23 @@ void Enemy::Update() {//// 更新
 	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
 		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
 	}
-
+	//敵撃破後のランダム生成処理
+	if (isDead_ == true)
+	{
+		SpawnTime++;
+		if (SpawnTime < 20) {
+			worldTransform_.Initialize();
+			for (i = 0; i < 10; i++) {
+				number = rand();
+				number = rand() % 3 - 1;
+			}
+		}
+		if (SpawnTime > 21&&number==3)
+		{
+			isDead_ = false;
+			SpawnTime = 0;
+		}
+	}
 }
 
 
