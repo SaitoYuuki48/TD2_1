@@ -15,7 +15,7 @@ void HitBox::Initialize(Model* model) {
 	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
 	// x,y,z方向の回転を設定
 	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
-	// x,y,zの方向のを設定
+	// x,y,zの座標を設定
 	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
 }
 
@@ -30,7 +30,7 @@ void HitBox::Update() {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
 
-	ImGui::SliderFloat3("EnemyPos", hitPos, 50.0f, -50.0f);
+	ImGui::SliderFloat3("hitboxPos", hitPos, 50.0f, -50.0f);
 
 	ImGui::End();
 

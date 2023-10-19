@@ -69,9 +69,6 @@ void GameScene::Initialize() {
 
 #ifdef _DEBUG
 
-	//カメラの更新
-	camera_->Update();
-
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
@@ -83,6 +80,9 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	// カメラの更新
+	camera_->Update();
+	
 	//デバッグカメラの更新
 	debugCamera_->Update();
 	
