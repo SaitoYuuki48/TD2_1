@@ -20,8 +20,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
 	// 乱数の初期化(シード値の設定)
-	unsigned int Time = static_cast<unsigned int>(time(nullptr));
-	srand((unsigned)time(NULL));
+	Time = static_cast<unsigned int>(time(nullptr));
+	srand((Time)(time(nullptr)));
 
 }
 

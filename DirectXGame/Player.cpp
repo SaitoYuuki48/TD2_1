@@ -34,6 +34,9 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//タイマー関連
 	panchiTimer = 0;
 
+	//HP初期化
+	PlayerHP = 3;
+
 }
 
 void Player::Update() {
@@ -132,7 +135,13 @@ int Player::CheakPanchi() {
 	return flag;
 }
 
+void Player::OnCollision() {
+	PlayerHP -= 1;
+	if (PlayerHP >= 0)
+	{
 
+	}
+}
 
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos;

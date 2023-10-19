@@ -17,6 +17,8 @@ public:
 
 	int CheakPanchi();
 
+	void OnCollision();
+
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
 
@@ -46,4 +48,6 @@ public:
 	int cheakPanchi;
 
 	int panchiTimer;
+
+	int PlayerHP=3;
 };

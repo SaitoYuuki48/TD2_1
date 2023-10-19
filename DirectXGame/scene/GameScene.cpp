@@ -226,7 +226,7 @@ void GameScene::CheakAllCollisions() {
 
 	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)&&cheakPanchi==1) {
 		enemy_->OnCollision();
-
+		player_->
 	}
 
 }

@@ -59,7 +59,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -112,6 +112,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="compute.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="main.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="compute.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="input\Input.h" />
