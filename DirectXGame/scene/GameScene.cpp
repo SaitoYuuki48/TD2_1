@@ -62,18 +62,24 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_);
 
+	//カメラの生成
+	camera_ = std::make_unique<Camera>();
+	//カメラの初期化
+	camera_->Initialize();
+
 #ifdef _DEBUG
 
-	// デバッグカメラの生成
+	//カメラの更新
+	camera_->Update();
+
+	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-#endif // _DEBUG
-	
-
+#endif // _DEBU
 }
 
 void GameScene::Update() {
@@ -97,8 +103,11 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	} else {
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = camera_->GetViewProjection().matView;
+		viewProjection_.matProjection = camera_->GetViewProjection().matProjection;
+		// ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+		
 	}
 #endif // _DEBUG
 
@@ -154,7 +163,7 @@ void GameScene::Draw() {
 	skydome_->Draw(viewProjection_);
 
 	//床の描画
-	//ground_->Draw(viewProjection_);
+	ground_->Draw(viewProjection_);
 
 	//ヒットボックス
 	hitBox_->Draw(viewProjection_);
