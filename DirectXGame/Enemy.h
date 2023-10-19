@@ -2,6 +2,7 @@
 #include "WorldTransform.h"
 #include "Model.h"
 #include "Input.h"
+#include<stdlib.h>
 #include<time.h>
 
 
@@ -22,6 +23,13 @@ public:
 
 	// デスフラグ
 	bool isDead_ = false;
+
+	// 乱数を生成して変数に代入
+	int i = 0;
+	float number = 0;
+	float SpawnTime = 0;
+	
+
 
 private:
 	// ワールド変換データ
