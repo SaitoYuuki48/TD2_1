@@ -15,9 +15,8 @@ void Ground::Initialize(Model* model) {
 	// x,y,z方向の回転を設定
 	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
 	// x,y,zの方向のを設定
-	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.translation_ = {0.0f, -10.0f, 0.0f};
 }
-
 void Ground::Update() { worldTransform_.UpdateMatrix(); }
 
 void Ground::Draw(const ViewProjection& viewProjection) {

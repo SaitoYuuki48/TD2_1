@@ -5,7 +5,7 @@ void Camera::Initialize() {
 	// x,y,z方向の回転を設定
 	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
 	// x,y,zの方向のを設定
-	worldTransform_.translation_ = {0.0f, 5.0f, -50.0f};
+	worldTransform_.translation_ = {0.0f, 5.0f, -100.0f};
 
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
