@@ -14,9 +14,9 @@ void HitBox::Initialize(Model* model) {
 	// x,y,z方向のスケーリングを設定
 	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
 	// x,y,z方向の回転を設定
-	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.rotation_ = {0.0f, -0.2f, -1.57f};
 	// x,y,zの座標を設定
-	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.translation_ = {0.0f, 2.0f, -50.0f};
 }
 
 void HitBox::Update() {

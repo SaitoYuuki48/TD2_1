@@ -40,7 +40,7 @@ void GameScene::Initialize() {
 	// 敵の生成
 	enemy_ = new Enemy();
 	// 敵の初期化
-	enemy_->Initialize(model_, textureHandle_);
+	enemy_->Initialize(model_);
 
 	// ヒットボックス
 	// 3Dモデルの生成
@@ -78,6 +78,10 @@ void GameScene::Initialize() {
 	camera_ = std::make_unique<Camera>();
 	//カメラの初期化
 	camera_->Initialize();
+
+	// 乱数の初期化(シード値の設定)
+	Time = static_cast<unsigned int>(time(nullptr));
+	srand((unsigned)time(NULL));
 
 #ifdef _DEBUG
 
@@ -127,7 +131,13 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 	// 敵キャラの更新
-	enemy_->Update();
+	//enemy_->Update();
+	
+		// 敵キャラの更新
+	for (Enemy* enemy : enemys_) {
+		enemy->Update();
+	}
+
 	//天球の更新
 	skydome_->Update();
 	//床の更新
@@ -135,6 +145,15 @@ void GameScene::Update() {
 	// ヒットボックス
 	hitBox_->Update();
 	noHitBox_->Update();
+
+		// デスフラグ
+	enemys_.remove_if([](Enemy* enemy) {
+		if (enemy->IsDead()) {
+			delete enemy;
+			return true;
+		}
+		return false;
+	});
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
@@ -180,8 +199,11 @@ void GameScene::Draw() {
 	ground_->Draw(viewProjection_);
 
 	//ヒットボックス
-	hitBox_->Draw(viewProjection_);
+	if (changeHitbox == false) {
 	noHitBox_->Draw(viewProjection_);
+	} else {
+	hitBox_->Draw(viewProjection_);
+	}
 
 	/*for (Enemy* enemy : enemys_) {
 	    enemy->Draw(viewProjection_);
@@ -213,7 +235,7 @@ void GameScene::CheakAllCollisions() {
 	float posAB;
 
 	//敵の半径
-	float enemyRadius = 8.0f;
+	float enemyRadius = 7.0f;
 
 	//殴る当たり判定の半径
 	float hitRadius = 4.0f;
@@ -234,9 +256,38 @@ void GameScene::CheakAllCollisions() {
 	        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
 	        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
 
-	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)&&cheakPanchi==1) {
+	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
+	    changeHitbox = true;//ヒットボックス色切り替え
+		if (cheakPanchi == 1) {
 		enemy_->OnCollision();
-
+		}
+		
+	} else {
+		changeHitbox = false;//ヒットボックス色切り替え
 	}
 
+}
+
+void GameScene::EnemySpawn() { 
+	Enemy* enemy = new Enemy();
+	//初期化
+	enemy->Initialize(model_);
+	//リストに登録
+	enemys_.push_back(enemy);
+}
+
+void GameScene::RandSpawn() {
+	// 敵キャラの更新
+	for (Enemy* enemy : enemys_) {
+		if (enemy->IsDead()) {
+		number = static_cast<float>(rand());
+		number = static_cast<float>(rand() % 10 + 1);
+
+		SpawnTime++;
+		if (SpawnTime > 5 && number == 1) {
+			EnemySpawn();
+			SpawnTime = 0;
+		}
+		}
+	}
 }
