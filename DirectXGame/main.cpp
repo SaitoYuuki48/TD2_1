@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	PrimitiveDrawer* primitiveDrawer = nullptr;
 	GameScene* gameScene = nullptr;
 	TitleScene* titleScene = nullptr;
-	GameOver* gameOver = nullptr;
+	GameOver* gameOverScene = nullptr;
 	
 
 	// ゲームウィンドウの作成
@@ -71,8 +71,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	titleScene->Initialize();
 
 	// ゲームオーバーの初期化
-	gameOver = new GameOver();
-	gameOver->Initialize();
+	gameOverScene = new GameOver();
+	gameOverScene->Initialize();
 
 	SceneType sceneNo = SceneType::kTitle;
 
@@ -92,7 +92,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case SceneType::kTitle:
 			titleScene->Initialize();
 			gameScene->Initialize();
-			gameOver->Initialize();
+			gameOverScene->Initialize();
 			titleScene->Update();
 			
 
@@ -109,12 +109,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameScene->IsSceneEnd()) {
 				// 次のシーンの値を代入してシーン切り替え
-				sceneNo = titleScene->NextScene();
+				sceneNo = gameScene->NextScene();
 			}
+			break;
 	    case SceneType::kGameOver:
-			// ゲームオーバーシーン毎フレーム処理
-			gameOver->Update();
-
+			// ゲームシーンの毎フレーム処理
+			gameOverScene->Update();
+			if (gameOverScene->IsSceneEnd()) {
+				// 次のシーンの値を代入してシーン切り替え
+				sceneNo = gameOverScene->NextScene();
+			}
+			break;
 		}
 
 		// 軸表示の更新

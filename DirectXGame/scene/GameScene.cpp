@@ -129,6 +129,9 @@ void GameScene::Update() {
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
+	if (input_->TriggerKey(DIK_RETURN)) {
+		isSceneEnd = true;
+	}
 }
 
 void GameScene::Draw() {
@@ -195,38 +198,38 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::CheakAllCollisions() { 
-	//変数の宣言
+void GameScene::CheakAllCollisions() {
+	// 変数の宣言
 	Vector3 vecPlayer, vecEnemy;
 
-	//２間点の距離
+	// ２間点の距離
 	float posAB;
 
-	//敵の半径
+	// 敵の半径
 	float enemyRadius = 4.0f;
 
-	//殴る当たり判定の半径
+	// 殴る当たり判定の半径
 	float hitRadius = 4.0f;
 
-	//パンチの種類を判別する変数
+	// パンチの種類を判別する変数
 	int cheakPanchi;
 
 	cheakPanchi = player_->CheakPanchi();
 
-	//敵の座標を変数に入れる
+	// 敵の座標を変数に入れる
 	vecEnemy = enemy_->GetWorldPosition();
 
-	//ヒットボックスの座標を変数に入れる
+	// ヒットボックスの座標を変数に入れる
 	vecPlayer = hitBox_->GetWorldPosition();
 
-	//２間点の距離を求める
+	// ２間点の距離を求める
 	posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
 	        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
 	        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
 
-	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)&&cheakPanchi==1) {
+	if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius) && cheakPanchi == 1) {
 		enemy_->OnCollision();
-		player_->
+		player_->OnCollision();
 	}
 
 }

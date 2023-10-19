@@ -22,6 +22,7 @@ void TitleScene::Update() {
 	if (input_->TriggerKey(DIK_RETURN)) {
 		isSceneEnd = true;
 	}
+
 }
 
 void TitleScene::Draw()
