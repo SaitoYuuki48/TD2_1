@@ -50,6 +50,14 @@ void GameScene::Initialize() {
 	hitBox_ = std::make_unique<HitBox>();
 	// ヒットボックスの初期化
 	hitBox_->Initialize(modelHitBox_.get());
+	
+	//当たっていないときのヒットボックス
+	modelNoHitBox_.reset(Model::CreateFromOBJ("NoHitBox", true));
+	modelNoHitBox_->SetMaterialAlpha("NoHitBox", 0.2f);
+	//生成
+	noHitBox_ = std::make_unique<NoHitBox>();
+	// 初期化
+	noHitBox_->Initialize(modelNoHitBox_.get());
 
 	// 地面
 	// 3Dモデルの生成
@@ -126,6 +134,7 @@ void GameScene::Update() {
 	ground_->Update();
 	// ヒットボックス
 	hitBox_->Update();
+	noHitBox_->Update();
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
@@ -172,6 +181,7 @@ void GameScene::Draw() {
 
 	//ヒットボックス
 	hitBox_->Draw(viewProjection_);
+	noHitBox_->Draw(viewProjection_);
 
 	/*for (Enemy* enemy : enemys_) {
 	    enemy->Draw(viewProjection_);
