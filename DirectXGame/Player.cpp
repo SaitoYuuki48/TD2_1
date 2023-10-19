@@ -71,7 +71,7 @@ void Player::Update() {
 	 worldTransform_.translation_ = Add(worldTransform_.translation_,charge);
 
 	} else {
-	//溜めてないときは初期位置に座標を設定(後でconstで設定するといいかも)
+	////溜めてないときは初期位置に座標を設定(後でconstで設定するといいかも)
 	 worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
 	}
 
