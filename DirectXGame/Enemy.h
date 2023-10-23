@@ -5,13 +5,15 @@
 #include<stdlib.h>
 #include<time.h>
 
+#include <list>
+
 
 class Enemy {
 public:
 	////デストラクタ
 	//~Enemy();
 
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model);
 
 	void Update();
 
@@ -21,8 +23,8 @@ public:
 
 	Vector3 GetWorldPosition();
 
-	// デスフラグ
-	bool isDead_ = false;
+	bool IsDead() const { return isDead_; }
+
 
 	// 乱数を生成して変数に代入
 	int i = 0;
@@ -30,7 +32,7 @@ public:
 	float SpawnTime = 0;
 	/*unsigned int Time;*/
 	
-
+	unsigned int Time;
 
 private:
 	// ワールド変換データ
@@ -42,5 +44,7 @@ private:
 	// キーボード入力
 	Input* input_ = nullptr;
 
+	// デスフラグ
+	bool isDead_ = false;
 
 };

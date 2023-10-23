@@ -41,10 +41,6 @@ public:
 	int chargeTime ;//溜めてる時間を判定するタイマー
 	bool panchiFlag ;//溜めてるかのフラグ
 
-	//２種類のパンチのフラグ
-	bool shortFlag;
-	bool longFlag;
-
 	int cheakPanchi;
 
 	int panchiTimer;

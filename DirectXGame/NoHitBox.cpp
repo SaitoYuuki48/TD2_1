@@ -1,8 +1,8 @@
-﻿#include "HitBox.h"
+﻿#include "NoHitBox.h"
 #include <cassert>
 #include "ImGuiManager.h"
 
-void HitBox::Initialize(Model* model) {
+void NoHitBox::Initialize(Model* model) {
 	// 引数から受け取ったモデルが読み込まれているかチェック
 	assert(model);
 	// 引数からモデルとテクスチャハンドルを受け取る
@@ -19,18 +19,22 @@ void HitBox::Initialize(Model* model) {
 	worldTransform_.translation_ = {0.0f, 2.0f, -50.0f};
 }
 
-void HitBox::Update() {
+void NoHitBox::Update() {
 	worldTransform_.UpdateMatrix();
 
 #ifdef _DEBUG
 
-	ImGui::Begin("hitbox");
+	ImGui::Begin("NoHitbox");
 
 	float hitPos[] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
 
-	ImGui::SliderFloat3("hitboxPos", hitPos, 50.0f, -50.0f);
+	float hitRote[] = {
+		worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z
+     };
+
+	ImGui::SliderFloat3("hitboxPos", hitRote, 50.0f, -50.0f);
 
 	ImGui::End();
 
@@ -38,20 +42,23 @@ void HitBox::Update() {
 	worldTransform_.translation_.y = hitPos[1];
 	worldTransform_.translation_.z = hitPos[2];
 
-#endif //_DEBUG
+	worldTransform_.rotation_.x = hitRote[0];
+	worldTransform_.rotation_.y = hitRote[1];
+	worldTransform_.rotation_.z = hitRote[2];
 
+#endif //_DEBUG
 }
 
-void HitBox::Draw(const ViewProjection& viewProjection) {
+void NoHitBox::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection);
 }
 
-Vector3 HitBox::GetWorldPosition() {
+Vector3 NoHitBox::GetWorldPosition() { 
 	Vector3 worldPos;
 
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
-	return worldPos;
+	return Vector3(); 
 }

@@ -26,9 +26,6 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	//プログラムで使う変数の宣言
 	chargeTime = 0;
 	panchiFlag = false;//溜めているかのフラグ
-	//長短押しのフラグ
-	shortFlag = false;
-	longFlag = false;
 	cheakPanchi = 0;//数字版のフラグ
 
 	//タイマー関連
@@ -50,11 +47,11 @@ void Player::Update() {
 	
 		panchiFlag = false;
 		//タイマーでパンチの種類を判定
-	 if (chargeTime >= 1 && chargeTime <= 8) {
+	 if (chargeTime >= 1 && chargeTime <= 15) {
 		 cheakPanchi=1;
 		 //cheakPanchi = 0;   
 		 chargeTime = 0;
-	 } else if (chargeTime >= 9) {
+	 } else if (chargeTime >= 16) {
 			cheakPanchi=2;
 		 chargeTime = 0;
 	 }
@@ -112,7 +109,6 @@ void Player::Update() {
 
 	ImGui::Text("%d", cheakPanchi);
 	ImGui::Text("%d", chargeTime);
-	ImGui::Text("SHORT%lf:LONG%lf", shortFlag,longFlag);
 
 	ImGui::End();
 

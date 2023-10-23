@@ -18,6 +18,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include "HitBox.h"
+#include "NoHitBox.h"
 #include "Camera.h"
 
 /// <summary>
@@ -53,6 +54,18 @@ public: // メンバ関数
 
 	//敵にパンチが当たってるか判定する関数
 	void CheakAllCollisions();
+
+	//敵の複数発生
+	void EnemySpawn();
+
+	void RandSpawn();
+
+
+	//敵のリスト
+	std::list<Enemy*> enemys_;
+
+	// 敵発生コマンド
+	std::stringstream enemyPopCommands;
 
 	bool isSceneEnd = false;
 
@@ -98,6 +111,11 @@ private: // メンバ変数
 	//ヒットボックス(当たり判定)のモデル
 	std::unique_ptr<Model> modelHitBox_;
 
+	//当たっていないときのヒットボックス
+	std::unique_ptr<NoHitBox> noHitBox_;
+	// ヒットボックス(当たり判定)のモデル
+	std::unique_ptr<Model> modelNoHitBox_;
+
 	//スカイドーム
 	Skydome* skydome_ = nullptr;
 	// 天球の3Dモデル
@@ -107,4 +125,16 @@ private: // メンバ変数
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
+
+	//ヒットボックス描画切り替え
+	bool changeHitbox=false;
+
+	//乱数を使用するための変数
+	//  乱数を生成して変数に代入
+	int i = 0;
+	float number = 0;
+	float SpawnTime = 0;
+
+	unsigned int Time;
+
 };

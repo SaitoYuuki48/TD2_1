@@ -4,13 +4,13 @@
 #include "ImGuiManager.h"
 
 
-void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
+void Enemy::Initialize(Model* model) { // 初期化
 	// NULLポインタチェック
 	assert(model);
 
 	// 引数からデータを受け取る
 	model_ = model;
-	textureHandle_ = textureHandle;
+	
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
@@ -20,8 +20,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
 	// 乱数の初期化(シード値の設定)
-	static_cast<unsigned int>(time(nullptr));
-	srand(static_cast<unsigned int> (time(NULL)));
+	Time = static_cast<unsigned int>(time(nullptr));
+	srand((unsigned)time(NULL));
 
 }
 
@@ -103,20 +103,20 @@ void Enemy::Update() {//// 更新
 	
 
 	//敵撃破後のランダム生成処理
-	if (isDead_ == true)
-	{
-		worldTransform_.translation_.z = 4;
-		number = static_cast<float>(rand());
-		number = static_cast<float>(rand() % 10 + 1);
-		
-		SpawnTime++;
-		if (SpawnTime > 5&&number==1)
-		{
-			isDead_ = false;
-			
-			SpawnTime = 0;
-		}
-	}
+	//if (isDead_ == true)
+	//{
+	//	worldTransform_.translation_.z = 4;
+	//	number = static_cast<float>(rand());
+	//	number = static_cast<float>(rand() % 10 + 1);
+	//	
+	//	SpawnTime++;
+	//	if (SpawnTime > 5&&number==1)
+	//	{
+	//		isDead_ = false;
+	//		
+	//		SpawnTime = 0;
+	//	}
+	//}
 }
 
 
