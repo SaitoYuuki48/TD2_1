@@ -138,7 +138,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			gameScene->Draw();
 			break;
 		case SceneType::kGameOver:
-			gameScene->Draw();
+			gameOverScene->Draw();
 			break;
 		}
 

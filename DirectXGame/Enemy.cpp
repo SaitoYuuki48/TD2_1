@@ -19,9 +19,9 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) { // 初期化
 	worldTransform_.scale_ = Scale;
 	textureHandle_ = TextureManager::Load("resources/Enemy.png");
 	isDead_ = false;
-	//// 乱数の初期化(シード値の設定)
-	//static_cast<unsigned int>(time(nullptr));
-	//srand(static_cast<unsigned int> (time(NULL)));
+	// 乱数の初期化(シード値の設定)
+	static_cast<unsigned int>(time(nullptr));
+	srand(static_cast<unsigned int> (time(NULL)));
 
 }
 

@@ -9,12 +9,12 @@ void GameOver::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	//// テクスチャ
-	//uint32_t textureTitle = TextureManager::Load("resources/title.png");
+	// テクスチャ
+	uint32_t textureTitle = TextureManager::Load("resources/title.png");
 
-	//// スプライト生成
-	//spriteTitle_ =
-	//    Sprite::Create(textureTitle, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	// スプライト生成
+	spriteTitle_ =
+	    Sprite::Create(textureTitle, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 }
 
 void GameOver::Update() {
@@ -22,6 +22,7 @@ void GameOver::Update() {
 		isSceneEnd = true;
 	}
 }
+
 
 void GameOver::Draw() {
 	// コマンドリストの取得
