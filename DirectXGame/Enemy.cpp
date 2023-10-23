@@ -17,8 +17,12 @@ void Enemy::Initialize(Model* model) { // 初期化
 	// スケール
 	Vector3 Scale = {4, 4, 4};
 	worldTransform_.scale_ = Scale;
-	textureHandle_ = TextureManager::Load("resources/Enemy.png");
+	textureHandle1_ = TextureManager::Load("resources/Enemy.png");//真っ直ぐくるやつ
+	textureHandle2_ = TextureManager::Load("resources/Red.png");//外回りするやつ
+	textureHandle3_ = TextureManager::Load("resources/Green.png");//速度変化するやつ
 	isDead_ = false;
+	StayingTime = 0;
+	
 	// 乱数の初期化(シード値の設定)
 	Time = static_cast<unsigned int>(time(nullptr));
 	srand((unsigned)time(NULL));
@@ -27,43 +31,114 @@ void Enemy::Initialize(Model* model) { // 初期化
 
 void Enemy::Draw(ViewProjection& viewProjection) {//描画
 	if (isDead_ == false) {
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+		if (isStraight == true)
+		{
+			model_->Draw(worldTransform_, viewProjection, textureHandle1_);//真っ直ぐくるやつ
+		}
+		if (isOuter == true) {
+			model_->Draw(worldTransform_, viewProjection, textureHandle2_);//外回りするやつ
+		}
+		if (isChange == true) {
+			model_->Draw(worldTransform_, viewProjection, textureHandle3_);//速度変化するやつ
+		}
 	}
 }
 
 
 void Enemy::Update() {//// 更新
-
+	isStraight = true;
 #pragma region 移動変数
-	const float EnemySpeedZ = -0.5f;
 	float UpMoveSpeed = 0.5f;
 	float DownMoveSpeed = -0.9f;
 #pragma endregion
-#pragma region 回転変数
-	const float RotateSpeedX = 0.0f;
-	const float RotateSpeedY = 0.0f;
-#pragma endregion
 
-	//移動
-	Vector3 move = {0, 0, EnemySpeedZ};
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	if (isStraight == true) {
+		//滞在時間
+		StayingTime++;
+		//移動
+		Vector3 move = {0, 0, -0.5f};
+		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+		//回転
+		Vector3 Rotate = {0.5f, 0.5f,0.3f};
+		worldTransform_.rotation_ = Add(worldTransform_.rotation_, Rotate);
+		
+
+		worldTransform_.matWorld_ = MakeAffineMatrix(
+		    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+
+		// 上に行く
+		if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+			worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
+		}
+		//下に降りる
+		if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+			worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+		}
+		worldTransform_.TransferMatrix();
+
+
+	}
+
+	if (isOuter == true)
+	{
+		// 滞在時間
+		StayingTime++;
+		// 移動
+		Vector3 move = {0, 0, -0.5f};
+		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+		
+		// 回転
+		Vector3 Rotate = {0.5f, 0.5f, 0.3f};
+		worldTransform_.rotation_ = Add(worldTransform_.rotation_, Rotate);
+
+		worldTransform_.matWorld_ = MakeAffineMatrix(
+		    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+
+		// 右に行く
+		if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+			worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+		}
+		//左へいく
+
+		
+
+		worldTransform_.TransferMatrix();
+	}
+
+	if (isChange == true)
+	{
+		// 滞在時間
+		StayingTime++;
+		// 移動
+		Vector3 move = {0, 0, -0.5f};
+		worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+
+		// 回転
+		Vector3 Rotate = {0.5f, 0.5f, 0.3f};
+		worldTransform_.rotation_ = Add(worldTransform_.rotation_, Rotate);
+
+		worldTransform_.matWorld_ = MakeAffineMatrix(
+		    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+		// 右に行く
+		if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+			worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+		}
+		// 左へいく
+
+		worldTransform_.TransferMatrix();
+	}
+
+
+
+	
+	float EnemyDebug[] = {
+	    static_cast<float>(SpawnTime), static_cast<float>(Spawnnumber)};
 	float EnemyPos[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
-	//回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY,0};
-	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
-	
-
-	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-
-
-	worldTransform_.TransferMatrix();
-
-	float EnemyDebug[] = {static_cast<float>(SpawnTime), static_cast<float>(number)};
-
-
 #ifdef _DEBUG
 
 	ImGui::Begin("Enemy");
@@ -82,45 +157,58 @@ void Enemy::Update() {//// 更新
 	
 
 	ImGui::Begin("EnemySpawn");
-	ImGui::Text("%f,%f", EnemyDebug,number);
+	ImGui::Text("%f,%f", EnemyDebug,Spawnnumber);
 	ImGui::Text("%f\n,%f", EnemyDebug,SpawnTime);
 	ImGui::End();
-	/*SpawnTime = static_cast<float>(EnemyDebug[0]);
-	number = static_cast<float> (EnemyDebug[1]);*/
+	SpawnTime = static_cast<float>(EnemyDebug[0]);
+	Spawnnumber = static_cast<float> (EnemyDebug[1]);
+	
 
 	
 #endif //_DEBUG
-
-	// 上に行く
-	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
-	}
-	//下に降りる
-	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	//リスポーン処理
+	if (StayingTime>=150) {
+		isDead_ = true;
+		StayingTime = 0;
 	}
 
-	
 
-	//敵撃破後のランダム生成処理
-	//if (isDead_ == true)
-	//{
-	//	worldTransform_.translation_.z = 4;
-	//	number = static_cast<float>(rand());
-	//	number = static_cast<float>(rand() % 10 + 1);
-	//	
-	//	SpawnTime++;
-	//	if (SpawnTime > 5&&number==1)
-	//	{
-	//		isDead_ = false;
-	//		
-	//		SpawnTime = 0;
-	//	}
-	//}
+	//敵のランダム生成処理
+	if (isDead_ == true)
+	{
+		worldTransform_.translation_.z = 4;
+		worldTransform_.translation_.y = 0;
+		Spawnnumber = static_cast<float>(rand());
+		Spawnnumber = static_cast<float>(rand() % 3 + 1); 
+		
+		//待機時間
+		SpawnTime++;
+		if (SpawnTime > 120 && Spawnnumber == 1)
+		{
+			isStraight = true;
+			isDead_ = false;
+			SpawnTime = 0;
+		}
+		if (SpawnTime > 120 && Spawnnumber == 2) {
+			isOuter = true;
+			isDead_ = false;
+			SpawnTime = 0;
+		}
+		if (SpawnTime > 120 && Spawnnumber == 3) {
+			isChange = true;
+			isDead_ = false;
+			SpawnTime = 0;
+		}
+	}
+
+
 }
 
 
-void Enemy::OnCollision() { isDead_ = true; }
+void Enemy::OnCollision() { 
+	isDead_ = true;
+	StayingTime = 0;
+}
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;

@@ -25,14 +25,9 @@ public:
 
 	bool IsDead() const { return isDead_; }
 
-
-	// 乱数を生成して変数に代入
-	int i = 0;
-	float number = 0;
-	float SpawnTime = 0;
-	/*unsigned int Time;*/
-	
 	unsigned int Time;
+	// デスフラグ
+	bool isDead_ = false;
 
 private:
 	// ワールド変換データ
@@ -40,11 +35,22 @@ private:
 	// モデル
 	Model* model_ = nullptr;
 	// テクスチャハンドル
-	uint32_t textureHandle_ = 0u;
+	uint32_t textureHandle1_ = 0u;//真っ直ぐくるやつ
+	uint32_t textureHandle2_ = 0u;//外回りするやつ
+	uint32_t textureHandle3_ = 0u;//速度変化するやつ
 	// キーボード入力
 	Input* input_ = nullptr;
 
-	// デスフラグ
-	bool isDead_ = false;
+	// 乱数を生成して変数に代入
+	int i = 0;
+	float Spawnnumber = 0; // 出現パターン
+	float SpawnTime = 0;   // 待機時間
+	
+	//敵の変数
+	bool isStraight = false;//真っ直ぐくるやつ
+	bool isOuter = false;//外回りするやつ
+	bool isChange = false;//速度変化するやつ
+	//滞在time
+	int StayingTime = 0;
 
 };
