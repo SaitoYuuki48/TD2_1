@@ -181,4 +181,8 @@ private: // メンバ変数
 
 	//経過した時間
 	float timer = 0;
+
+	//ゲームオーバーかどうかのフラグ
+	bool isGameOver = false;
+	
 };

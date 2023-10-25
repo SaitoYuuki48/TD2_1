@@ -249,7 +249,7 @@ void GameScene::Update() {
 	});
 
 	if (playerLife_ <= 0) {
-
+		isGameOver = true;
 
 	} else {
 		// 敵の発生間隔
@@ -333,13 +333,17 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 	
-	//ハートの描画
-	spriteLife_->Draw();
+	if (isGameOver == false) {
+		// ハートの描画
+		spriteLife_->Draw();
 
-	//スコアの画像
-	spriteScore1_[score1]->Draw();
-	spriteScore2_[score2]->Draw();
-	spriteScore3_[score3]->Draw();
+		// スコアの画像
+		spriteScore1_[score1]->Draw();
+		spriteScore2_[score2]->Draw();
+		spriteScore3_[score3]->Draw();
+	} else {
+	
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
