@@ -86,14 +86,26 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+private:
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	//ペースアップ
+	uint32_t PaseUptextureHandle_ = 0;
+	
 	// スプライト
 	Sprite* sprite_ = nullptr;
+	// ペースアップスプライト
+	Sprite* PaseUpsprite_ = nullptr;
+
+	//ペースアップ変数
+	int PaseUpTimer = 0;
+	bool isPaseUp = false;
+
 	// モデル
 	Model* model_ = nullptr;
 
@@ -181,4 +193,7 @@ private: // メンバ変数
 
 	//経過した時間
 	float timer = 0;
+
+	
+
 };

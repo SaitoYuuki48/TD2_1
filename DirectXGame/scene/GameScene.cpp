@@ -169,6 +169,10 @@ void GameScene::Initialize() {
 	bgmDataHandle_ = audio_->LoadWave("BGM/BGM.mp3");
 	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, true, 0.15f);
 
+	// ペースアップテクスチャ
+	PaseUptextureHandle_ = TextureManager::Load("resources/SpeedUp.png");
+	isPaseUp = false;
+
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
@@ -236,6 +240,11 @@ void GameScene::Update() {
 	// ヒットボックス
 	hitBox_->Update();
 	noHitBox_->Update();
+
+	//ペースアップ
+	PaseUpTimer++;
+
+	
 
 	// 当たり判定
 	GameScene::CheakAllCollisions();
@@ -319,7 +328,6 @@ void GameScene::Draw() {
 			hitBox_->Draw(viewProjection_);
 		}
 	}
-	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -328,10 +336,18 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	// ペースアップの描画
+	if (isPaseUp == true&&PaseUpTimer>=30) {
+		PaseUpsprite_->Draw();
+	}
+	
+	// スプライトの生成
+	PaseUpsprite_ = Sprite::Create(PaseUptextureHandle_, {0, -85});
+
 	
 	//ハートの描画
 	spriteLife_->Draw();
@@ -343,7 +359,6 @@ void GameScene::Draw() {
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
-
 #pragma endregion
 }
 
@@ -465,6 +480,8 @@ void GameScene::SpawnInterval() {
 	}
 	if (timer == 1560) {
 		spawnInterval = 60; // 60
+		isPaseUp = true;
+		
 	}
 	if (timer == 1690) {
 		spawnInterval = 50; // 50
