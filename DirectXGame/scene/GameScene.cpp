@@ -75,6 +75,11 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_->Initialize();
 
+	//ゲームオーバーの画像追加
+	uint32_t textureGameOver = TextureManager::Load("resources/overEnter.png");
+	spriteGameOver_ =
+	    Sprite::Create(textureGameOver, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
 	//ライフの画像
 	//  テクスチャ
 	uint32_t textureLife = TextureManager::Load("resources/Heart.png");
@@ -342,6 +347,8 @@ void GameScene::Draw() {
 		spriteScore2_[score2]->Draw();
 		spriteScore3_[score3]->Draw();
 	} else {
+		//ここにゲームオーバー時の画像描画を追加する
+		spriteGameOver_->Draw();
 	
 	}
 
@@ -491,8 +498,12 @@ void GameScene::sceneReset() {
 	for (Enemy* enemy : enemys_) {
 		enemy->OnCollision();
 	}
+	//ゲームオーバーのフラグを初期化
+	isGameOver = false; 
+	
 	// プレイヤーの体力
 	playerLife_ = kPLAYERLIFE_;
+
 
 	// 敵を倒した数
 	enemyDefeats_ = 0;

@@ -153,6 +153,9 @@ private: // メンバ変数
 	int score2 = 0;
 	int score3 = 0;
 
+	//ゲームオーバーの画像
+	Sprite* spriteGameOver_ = nullptr;
+
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
 	uint32_t bgmHandle_ = 0;
