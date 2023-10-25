@@ -163,7 +163,7 @@ void GameScene::Update() {
 
 	ImGui::Begin("EnemySpawn");
 	ImGui::Text("rand:%f", number);
-	//ImGui::Text("%f\n,%f", EnemyDebug, SpawnTime);
+	ImGui::Text("%f\n,%f", SpawnTime);
 	ImGui::End();
 	//SpawnTime = static_cast<float>(EnemyDebug[0]);
 	//number = static_cast<float>(EnemyDebug[1]);
