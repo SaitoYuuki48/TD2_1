@@ -60,8 +60,6 @@ public: // メンバ関数
 
 	void RandSpawn();
 
-	
-
 
 	//敵のリスト
 	std::list<Enemy*> enemys_;
@@ -69,10 +67,16 @@ public: // メンバ関数
 	// 敵発生コマンド
 	std::stringstream enemyPopCommands;
 
+	// シーンのリセット
+	void sceneReset();
+
 	bool isSceneEnd = false;
 
 	bool IsSceneEnd() { return isSceneEnd; }
 	SceneType NextScene() { return SceneType::kTitle; }
+
+private:
+	void SpawnInterval();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -95,7 +99,7 @@ private: // メンバ変数
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> debugCamera_; 
 
-	// フォローカメラ
+	// カメラ
 	std::unique_ptr<Camera> camera_;
 
 	// ワールドトランスフォーム
@@ -105,6 +109,12 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
+	//プレイヤーの体力
+	const int kPLAYERLIFE_ = 10;
+	int playerLife_ = kPLAYERLIFE_;
+
+	//敵を倒した数
+	int enemyDefeats_ = 0;
 
 	//ヒットボックス(当たり判定)
 	std::unique_ptr<HitBox> hitBox_;
@@ -127,13 +137,16 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelGround_;
 
 	//ヒットボックス描画切り替え
-	bool changeHitbox=false;
+	bool changeHitbox = false;
 
 	//乱数を使用するための変数
 	//  乱数を生成して変数に代入
 	int i = 0;
-	float SpawnTime = 0;
+	float spawnTime = 0;
 
-	unsigned int Time;
+	//敵の発生間隔
+	float spawnInterval = 120;
 
+	//経過した時間
+	float timer = 0;
 };

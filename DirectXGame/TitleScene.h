@@ -37,6 +37,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	void sceneReset();
+
 	bool isSceneEnd = false;
 
 	bool IsSceneEnd() { return isSceneEnd; }

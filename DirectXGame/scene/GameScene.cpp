@@ -80,20 +80,16 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_->Initialize();
 
-	// 乱数の初期化(シード値の設定)
-	Time = static_cast<unsigned int>(time(nullptr));
-	srand((unsigned)time(NULL));
-
-#ifdef _DEBUG
-
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
+
+#ifdef _DEBUG
 
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-#endif // _DEBU
+#endif // _DEBUG
 
 	// 敵の生成
 	EnemySpawn();
@@ -119,6 +115,7 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_V) && isDebugCameraActive_ == true) {
 		isDebugCameraActive_ = false;
 	}
+#endif // _DEBUG
 
 	// カメラの処理
 	if (isDebugCameraActive_ == true) {
@@ -132,17 +129,17 @@ void GameScene::Update() {
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 	}
-#endif // _DEBUG
 
 	// 自キャラの更新
 	player_->Update();
-	// 敵キャラの更新
-	// enemy_->Update();
 
 	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
 	}
+
+	//敵の発生間隔
+	SpawnInterval();
 
 	// 天球の更新
 	skydome_->Update();
@@ -164,6 +161,18 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+
+	if (playerLife_ <= 0) {
+
+	}
+
+	ImGui::Begin("Player");
+
+	ImGui::Text("%d", playerLife_);
+	ImGui::Text("%d", enemyDefeats_);
+	ImGui::Text("%f", spawnInterval);
+
+	ImGui::End();
 }
 
 void GameScene::Draw() {
@@ -213,7 +222,7 @@ void GameScene::Draw() {
 	// ヒットボックス
 	if (changeHitbox == false) {
 		noHitBox_->Draw(viewProjection_);
-	} else {
+	} else if (changeHitbox == true) {
 		hitBox_->Draw(viewProjection_);
 	}
 
@@ -261,6 +270,9 @@ void GameScene::CheakAllCollisions() {
 	//関数での代入
 	cheakPanchi = player_->CheakPanchi();
 
+	// 当たったカウント
+	int hitCount = 0; 
+
 	// 敵の座標を変数に入れる
 	for (Enemy* enemy : enemys_) {
 		vecEnemy = enemy->GetWorldPosition();
@@ -275,18 +287,29 @@ void GameScene::CheakAllCollisions() {
 		        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
 
 		if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
-			changeHitbox = true; // ヒットボックス色切り替え
+			
+			hitCount++;
 
-			if (cheakPanchi == 1&& attackType==0) { // ここでパンチと敵の種類が合ってたら消すようにする
+			if (cheakPanchi == 1&& attackType == 0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
-			}
-			if (cheakPanchi == 1 && attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
+				enemyDefeats_++;
+			} else if (cheakPanchi == 2 &&attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
-			}
+				enemyDefeats_++;
+			} else if (cheakPanchi != 0 &&attackType == 2) { // パンチしてはいけないときプレイヤーのライフを減らす
+				playerLife_--;
+			} 
+		} 
 
-		} else {
-			changeHitbox = false; // ヒットボックス色切り替え
+		//倒せなかったときの処理
+		if (attackType != 2 && vecEnemy.z == -80) {
+			playerLife_--;
 		}
+	}
+	if (hitCount != 0) {
+		changeHitbox = true; // ヒットボックス色切り替え
+	} else {
+		changeHitbox = false; // ヒットボックス色切り替え
 	}
 }
 
@@ -305,9 +328,65 @@ void GameScene::EnemySpawn() {
 
 void GameScene::RandSpawn() {
 	// 敵キャラの更新
-	SpawnTime++;
-	if (SpawnTime > 50) {
+	spawnTime++;
+	if (spawnTime > spawnInterval) {
 		EnemySpawn();
-		SpawnTime = 0;
+		spawnTime = 0;
 	}
+}
+
+void GameScene::SpawnInterval() {
+	timer++;
+	if (timer == 360) {
+		spawnInterval = 110; //110
+	}
+	if (timer == 720) {
+		spawnInterval = 100; //100
+	}
+	if (timer == 1080) {
+		spawnInterval = 90; //90
+	}
+	if (timer == 1320) {
+		spawnInterval = 80; // 80
+	}
+	if (timer == 1500) {
+		spawnInterval = 70; // 70
+	}
+	if (timer == 1560) {
+		spawnInterval = 60; // 60
+	}
+	if (timer == 1690) {
+		spawnInterval = 50; // 50
+	}
+	if (timer == 2000) {
+		spawnInterval = 45; // 40
+	}
+	//if (timer == 2400) {
+	//	spawnInterval = 30; // 30
+	//}
+	//if (timer == 3600) {
+	//	spawnInterval = 20; // 20
+	//}
+	//if (timer == 4800) {
+	//	spawnInterval = 10; // 10
+	//}
+}
+
+void GameScene::sceneReset() {
+	//シーンの切り替えフラグ
+	isSceneEnd = false;
+	
+	for (Enemy* enemy : enemys_) {
+		enemy->OnCollision();
+	}
+	// プレイヤーの体力
+	playerLife_ = kPLAYERLIFE_;
+
+	// 敵を倒した数
+	enemyDefeats_ = 0;
+
+	//経過時間
+	timer = 0;
+	//発生の間隔
+	spawnInterval = 120;
 }
