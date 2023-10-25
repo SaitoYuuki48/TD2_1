@@ -273,11 +273,10 @@ void GameScene::CheakAllCollisions() {
 		if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
 			changeHitbox = true; // ヒットボックス色切り替え
 
-			if (cheakPanchi == 1&&attackType==0) { // ここでパンチと敵の種類が合ってたら消すようにする
+			if (cheakPanchi == 1&& attackType==0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 			}
-			if (cheakPanchi == 1 &&
-			    attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
+			if (cheakPanchi == 1 && attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 			}
 
