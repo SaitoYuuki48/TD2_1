@@ -19,6 +19,12 @@ void Ground::Initialize(Model* model) {
 }
 void Ground::Update() {
 	worldTransform_.UpdateMatrix();
+
+	// 回転速さ[ラジアン/frame]
+	const float kRotSpeed = 0.001f;
+
+	// 回転
+	worldTransform_.rotation_.y += kRotSpeed;
 }
 
 void Ground::Draw(const ViewProjection& viewProjection) {

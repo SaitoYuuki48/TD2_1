@@ -36,26 +36,32 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 void Player::Update() {
 	worldTransform_.UpdateMatrix();
 
+	// 回転速さ[ラジアン/frame]
+	float rotSpeed = 0.0f;
+
 	//ボタンを短押しと長押しでアニメーションさせる
 	if (input_->PushKey(DIK_SPACE)) {
 		chargeTime++;
+		rotSpeed += 0.5;
 		panchiFlag = true;//パンチのフラグ
 	} else {
-	
+		worldTransform_.translation_.z += 10;
 		panchiFlag = false;
 		//タイマーでパンチの種類を判定
 	 if (chargeTime >= 1 && chargeTime <= 15) {
-		 cheakPanchi=1;
+			cheakPanchi = 1;
 		 //cheakPanchi = 0;   
 		 chargeTime = 0;
 	 } else if (chargeTime >= 16) {
-			cheakPanchi=2;
+		 cheakPanchi = 2;
 		 chargeTime = 0;
 	 }
 	
 	}
 	
-
+	// 回転
+	worldTransform_.rotation_.y -= rotSpeed;
+	
 	//長押ししているときのモーション
 	if (panchiFlag == true) {
 	 //溜めているときの腕の速度
@@ -80,7 +86,7 @@ void Player::Update() {
 	 }
 	}
 
-	
+
 
 	////短押しの挙動
 	//if (shortFlag == true) {
