@@ -82,6 +82,82 @@ void GameScene::Initialize() {
 	//ハートの画像
 	spriteLife_ = Sprite::Create(textureLife, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
+	//スコアの画像
+	//テクスチャ(0～9)
+	uint32_t textureScore0 = TextureManager::Load("resources/0.png");
+	uint32_t textureScore1 = TextureManager::Load("resources/1.png");
+	uint32_t textureScore2 = TextureManager::Load("resources/2.png");
+	uint32_t textureScore3 = TextureManager::Load("resources/3.png");
+	uint32_t textureScore4 = TextureManager::Load("resources/4.png");
+	uint32_t textureScore5 = TextureManager::Load("resources/5.png");
+	uint32_t textureScore6 = TextureManager::Load("resources/6.png");
+	uint32_t textureScore7 = TextureManager::Load("resources/7.png");
+	uint32_t textureScore8 = TextureManager::Load("resources/8.png");
+	uint32_t textureScore9 = TextureManager::Load("resources/9.png");
+
+	spriteScore1_[0] =
+	    Sprite::Create(textureScore0, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[1] =
+	    Sprite::Create(textureScore1, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[2] =
+	    Sprite::Create(textureScore2, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[3] =
+	    Sprite::Create(textureScore3, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[4] =
+	    Sprite::Create(textureScore4, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[5] =
+	    Sprite::Create(textureScore5, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[6] =
+	    Sprite::Create(textureScore6, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[7] =
+	    Sprite::Create(textureScore7, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[8] =
+	    Sprite::Create(textureScore8, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore1_[9] =
+	    Sprite::Create(textureScore9, {100.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+	spriteScore2_[0] =
+	    Sprite::Create(textureScore0, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[1] =
+	    Sprite::Create(textureScore1, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[2] =
+	    Sprite::Create(textureScore2, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[3] =
+	    Sprite::Create(textureScore3, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[4] =
+	    Sprite::Create(textureScore4, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[5] =
+	    Sprite::Create(textureScore5, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[6] =
+	    Sprite::Create(textureScore6, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[7] =
+	    Sprite::Create(textureScore7, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[8] =
+	    Sprite::Create(textureScore8, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore2_[9] =
+	    Sprite::Create(textureScore9, {50.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+	spriteScore3_[0] =
+	    Sprite::Create(textureScore0, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[1] =
+	    Sprite::Create(textureScore1, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[2] =
+	    Sprite::Create(textureScore2, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[3] =
+	    Sprite::Create(textureScore3, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[4] =
+	    Sprite::Create(textureScore4, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[5] =
+	    Sprite::Create(textureScore5, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[6] =
+	    Sprite::Create(textureScore6, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[7] =
+	    Sprite::Create(textureScore7, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[8] =
+	    Sprite::Create(textureScore8, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteScore3_[9] =
+	    Sprite::Create(textureScore9, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
 	//パンチのSE
 	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
 	panchiAiSoundHandle_ = audio_->LoadWave("se/panchi2.mp3");
@@ -118,6 +194,8 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_RETURN)) {
 		isSceneEnd = true;
 	}
+
+	ScoreUpdate();
 
 #ifdef _DEBUG
 
@@ -255,8 +333,13 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 	
-
+	//ハートの描画
 	spriteLife_->Draw();
+
+	//スコアの画像
+	spriteScore1_[score1]->Draw();
+	spriteScore2_[score2]->Draw();
+	spriteScore3_[score3]->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -309,10 +392,12 @@ void GameScene::CheakAllCollisions() {
 			if (cheakPanchi == 1&& attackType == 0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
+				score++;
 				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false, 1.0f);
 			} else if (cheakPanchi == 2 &&attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
+				score++;
 				seHandle_ = audio_->PlayWave(panchiAiSoundHandle_, false, 1.0f);
 			} else if (cheakPanchi != 0 &&attackType == 2) { // パンチしてはいけないときプレイヤーのライフを減らす
 				enemy->OnCollision();
@@ -353,6 +438,12 @@ void GameScene::RandSpawn() {
 		EnemySpawn();
 		spawnTime = 0;
 	}
+}
+
+void GameScene::ScoreUpdate() { 
+	score1 = (score / 1) % 10;//1の桁
+	score2 = (score / 10) % 10;//10の桁
+	score3 = (score / 100) % 10;//100の桁
 }
 
 void GameScene::SpawnInterval() {
