@@ -163,7 +163,7 @@ void GameScene::Update() {
 
 	ImGui::Begin("EnemySpawn");
 	ImGui::Text("rand:%f", number);
-	//ImGui::Text("%f\n,%f", EnemyDebug, SpawnTime);
+	ImGui::Text("spawnTime:%f", SpawnTime);
 	ImGui::End();
 	//SpawnTime = static_cast<float>(EnemyDebug[0]);
 	//number = static_cast<float>(EnemyDebug[1]);
@@ -305,9 +305,9 @@ void GameScene::RandSpawn() {
 	for (Enemy* enemy : enemys_) {
 		number = static_cast<float>(rand());
 		number = static_cast<float>(rand() % 3 + 1);
+		SpawnTime++;
 		if (enemy->IsDead()) {
 		
-		SpawnTime++;
 
 		if (SpawnTime > 50 && number == 1) {
 			EnemySpawn();
