@@ -135,6 +135,7 @@ private: // メンバ変数
 	float number = 0;
 	float SpawnTime = 0;
 
+
 	unsigned int Time;
 
 };

@@ -17,17 +17,23 @@ void Enemy::Initialize(Model* model) { // 初期化
 	// スケール
 	Vector3 Scale = {4, 4, 4};
 	worldTransform_.scale_ = Scale;
-	textureHandle_ = TextureManager::Load("resources/Enemy.png");
+	textureHandle_[0] = TextureManager::Load("resources/Enemy.png");
+	textureHandle_[1] = TextureManager::Load("resources/Green.png");
+	textureHandle_[2] = TextureManager::Load("resources/Pink.png");
 	isDead_ = false;
-	// 乱数の初期化(シード値の設定)
-	Time = static_cast<unsigned int>(time(nullptr));
-	srand((unsigned)time(NULL));
+	
 
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {//描画
-	if (isDead_ == false) {
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	if (isDead_ == false&&Straight==true) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_[0]);
+	}
+	if (isDead_ == false && Outer == true) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_[1]);
+	}
+	if (isDead_ == false && Change == true) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_[2]);
 	}
 }
 
@@ -35,21 +41,35 @@ void Enemy::Draw(ViewProjection& viewProjection) {//描画
 void Enemy::Update() {//// 更新
 
 #pragma region 移動変数
-	const float EnemySpeedZ = -0.5f;
-	float UpMoveSpeed = 0.5f;
-	float DownMoveSpeed = -0.9f;
+    float EnemySpeedZ = 0.0f;
+	float UpMoveSpeed = 0.0f;
+	float DownMoveSpeed = 0.0f;
+	if (Straight==true)	
+	{
+	   EnemySpeedZ = -0.5f;
+	   UpMoveSpeed = 0.5f;
+	   DownMoveSpeed = -0.9f;
+	}
+	if (Outer == true)
+	{
+	   EnemySpeedZ = -0.5f;
+	   UpMoveSpeed = 0.5f;
+	   DownMoveSpeed = -0.9f;
+	}
+	if (Change == true) {
+	   EnemySpeedZ = -0.5f;
+	   UpMoveSpeed = 0.5f;
+	   DownMoveSpeed = -0.9f;
+	}
 #pragma endregion
 #pragma region 回転変数
 	const float RotateSpeedX = 0.0f;
 	const float RotateSpeedY = 0.0f;
 #pragma endregion
-
+	if (Straight==true) {
 	//移動
 	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
-	float EnemyPos[3] = {
-	    worldTransform_.translation_.x, worldTransform_.translation_.y,
-	    worldTransform_.translation_.z};
 	//回転
 	Vector3 Rotate = {RotateSpeedX, RotateSpeedY,0};
 	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
@@ -59,7 +79,61 @@ void Enemy::Update() {//// 更新
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 
-	worldTransform_.TransferMatrix();
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
+	}
+	//下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+	}
+
+	if (Outer == true) {
+	// 移動
+	Vector3 move = {0, 0, EnemySpeedZ};
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// 回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+		worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+	}
+	// 下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+	}
+	if (Change == true) {
+	// 移動
+	Vector3 move = {0, 0, EnemySpeedZ};
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// 回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+		worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+	}
+	// 下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+	}
+
+	worldTransform_.UpdateMatrix();
+	float EnemyPos[3] = {
+	    worldTransform_.translation_.x, worldTransform_.translation_.y,
+	    worldTransform_.translation_.z};
 
 	float EnemyDebug[] = {static_cast<float>(SpawnTime), static_cast<float>(number)};
 
@@ -67,7 +141,7 @@ void Enemy::Update() {//// 更新
 #ifdef _DEBUG
 
 	ImGui::Begin("Enemy");
-	ImGui::SliderFloat3("EnemyPos", EnemyPos, 100.0f, -100.0f);
+	ImGui::SliderFloat3("EnemyPos",EnemyPos, 100.0f, -100.0f);
 	ImGui::End();
 
 	worldTransform_.translation_.x = EnemyPos[0];
@@ -90,15 +164,6 @@ void Enemy::Update() {//// 更新
 
 	
 #endif //_DEBUG
-
-	// 上に行く
-	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
-	}
-	//下に降りる
-	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
-	}
 
 	
 

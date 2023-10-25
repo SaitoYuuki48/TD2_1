@@ -26,12 +26,16 @@ public:
 	bool IsDead() const { return isDead_; }
 
 
-	// 乱数を生成して変数に代入
+	//// 乱数を生成して変数に代入
 	int i = 0;
 	float number = 0;
 	float SpawnTime = 0;
-	
-	unsigned int Time;
+	bool Straight = false; // 真っ直ぐ飛んでくる
+	bool Outer = false;    // 外回り
+	bool Change = false;   // 変換
+
+	//
+	//unsigned int Time;
 
 private:
 	// ワールド変換データ
@@ -39,7 +43,7 @@ private:
 	// モデル
 	Model* model_ = nullptr;
 	// テクスチャハンドル
-	uint32_t textureHandle_ = 0u;
+	uint32_t textureHandle_[3] = {0u,0u,0u};
 	// キーボード入力
 	Input* input_ = nullptr;
 

@@ -290,14 +290,35 @@ void GameScene::EnemySpawn() {
 void GameScene::RandSpawn() {
 	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
-		if (enemy->IsDead()) {
 		number = static_cast<float>(rand());
-		number = static_cast<float>(rand() % 10 + 1);
+		number = static_cast<float>(rand() % 3 + 1);
+		if (enemy->IsDead()) {
 		
 		SpawnTime++;
 
 		if (SpawnTime > 50 && number == 1) {
 			EnemySpawn();
+			enemy->Straight = true;
+			SpawnTime = 0;
+
+			// デスフラグ
+			enemys_.remove(enemy);  
+
+			break;
+		}
+		if (SpawnTime > 50 && number == 2) {
+			EnemySpawn();
+			enemy->Outer = true;
+			SpawnTime = 0;
+
+			// デスフラグ
+			enemys_.remove(enemy);
+
+			break;
+		}
+		if (SpawnTime > 50 && number == 3) {
+			EnemySpawn();
+			enemy->Change = true;
 			SpawnTime = 0;
 
 			// デスフラグ
