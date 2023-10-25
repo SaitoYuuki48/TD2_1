@@ -11,15 +11,23 @@ void TitleScene::Initialize()
 	audio_ = Audio::GetInstance();
 
 	// テクスチャ
-	uint32_t textureTitle = TextureManager::Load("resources/title.png");
+	uint32_t textureTitle = TextureManager::Load("resources/Title.png");
+	// ルールテクスチャ
+	uint32_t Luletexture = TextureManager::Load("resources/Lule.png");
 
 	// スプライト生成
 	spriteTitle_ =
 	    Sprite::Create(textureTitle, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	// スプライト生成
+	spriteLule_ = Sprite::Create(Luletexture, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 }
 
 void TitleScene::Update() {
-	if (input_->TriggerKey(DIK_RETURN)) {
+	if (input_->TriggerKey(DIK_SPACE)) {
+		isLule = true;
+	}
+	if (input_->TriggerKey(DIK_RETURN)&& isLule == true) {
+		isLule = false;
 		isSceneEnd = true;
 	}
 }
@@ -64,6 +72,10 @@ void TitleScene::Draw()
 	/// </summary>
 
 	spriteTitle_->Draw();
+	if (isLule == true)
+	{
+		spriteLule_->Draw();
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

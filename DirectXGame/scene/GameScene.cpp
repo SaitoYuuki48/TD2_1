@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("sample.png"); // プレイヤー
+	textureHandle_ = TextureManager::Load("resources/Arm.png"); // プレイヤー
 	// スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	// モデル生成
@@ -104,6 +104,10 @@ void GameScene::Update() {
 	camera_->Update();
 	// デバッグカメラの更新
 	debugCamera_->Update();
+	//終わり後シーン切り替え
+	if (input_->TriggerKey(DIK_RETURN)) {
+		isSceneEnd = true;
+	}
 
 #ifdef _DEBUG
 
