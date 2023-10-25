@@ -334,7 +334,7 @@ void GameScene::Draw() {
 	/// </summary>
 	
 	//ハートの描画
-	spriteLife_->Draw();
+	//spriteLife_->Draw();
 
 	//スコアの画像
 	spriteScore1_[score1]->Draw();

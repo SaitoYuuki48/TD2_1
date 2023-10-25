@@ -22,6 +22,7 @@ void NoHitBox::Initialize(Model* model) {
 void NoHitBox::Update() {
 	worldTransform_.UpdateMatrix();
 
+
 #ifdef _DEBUG
 
 	ImGui::Begin("NoHitbox");
