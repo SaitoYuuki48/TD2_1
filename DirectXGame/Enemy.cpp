@@ -115,7 +115,7 @@ void Enemy::StraightUpdate() {
 	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	// 回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	Vector3 Rotate = {0, 0, 0};
 	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
@@ -141,7 +141,7 @@ void Enemy::RightUpdate() {
 	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	// 回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	Vector3 Rotate = {0, 0, 0};
 	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
@@ -167,7 +167,7 @@ void Enemy::LeftUpdate() {
 	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	// 回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	Vector3 Rotate = {0, 0, 0};
 	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(

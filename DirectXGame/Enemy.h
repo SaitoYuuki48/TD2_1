@@ -74,9 +74,7 @@ private:
 	//上下移動
 	float UpMoveSpeed = 0.0f;
 	float DownMoveSpeed = 0.0f;
-	//回転速度
-	const float RotateSpeedX = 0.0f;
-	const float RotateSpeedY = 0.0f;
+	
 	//左右移動
 	float MoveSpeedX = 0.0f;
 
