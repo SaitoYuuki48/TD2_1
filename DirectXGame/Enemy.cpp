@@ -109,6 +109,7 @@ void Enemy::Update() {//// 更新
 		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
 	}
 	}
+
 	if (Change == true) {
 	// 移動
 	Vector3 move = {0, 0, EnemySpeedZ};
@@ -159,8 +160,8 @@ void Enemy::Update() {//// 更新
 	ImGui::Text("%f,%f", EnemyDebug,number);
 	ImGui::Text("%f\n,%f", EnemyDebug,SpawnTime);
 	ImGui::End();
-	/*SpawnTime = static_cast<float>(EnemyDebug[0]);
-	number = static_cast<float> (EnemyDebug[1]);*/
+	SpawnTime = static_cast<float>(EnemyDebug[0]);
+	number = static_cast<float> (EnemyDebug[1]);
 
 	
 #endif //_DEBUG

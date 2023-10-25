@@ -300,7 +300,7 @@ void GameScene::RandSpawn() {
 			EnemySpawn();
 			enemy->Straight = true;
 			SpawnTime = 0;
-
+			
 			// デスフラグ
 			enemys_.remove(enemy);  
 
