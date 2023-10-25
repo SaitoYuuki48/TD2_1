@@ -295,15 +295,15 @@ void GameScene::RandSpawn() {
 
 		SpawnTime++;
 
-		if (SpawnTime > 50 && number == 1) {
-			EnemySpawn();
-			SpawnTime = 0;
-
-			// デスフラグ
-			enemys_.remove(enemy);
-
-			break;
-		}
+		   if (SpawnTime > 20 && number == 1) {
+		   	EnemySpawn();
+		   	SpawnTime = 0;
+		   
+		   	// デスフラグ
+		   	enemys_.remove(enemy);
+		   
+		   	break;
+		   }
 		}
 	}
 }
