@@ -60,6 +60,8 @@ public: // メンバ関数
 
 	void RandSpawn();
 
+	
+
 
 	//敵のリスト
 	std::list<Enemy*> enemys_;
@@ -103,8 +105,6 @@ private: // メンバ変数
 
 	// 自キャラ
 	Player* player_ = nullptr;
-	// 敵キャラ
-	Enemy* enemy_ = nullptr;
 
 	//ヒットボックス(当たり判定)
 	std::unique_ptr<HitBox> hitBox_;
@@ -132,7 +132,6 @@ private: // メンバ変数
 	//乱数を使用するための変数
 	//  乱数を生成して変数に代入
 	int i = 0;
-	float number = 0;
 	float SpawnTime = 0;
 
 	unsigned int Time;
