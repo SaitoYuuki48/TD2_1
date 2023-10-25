@@ -169,67 +169,67 @@ void GameScene::Initialize() {
 
 	//リザルト
 	spriteResult1_[0] =
-	    Sprite::Create(textureScore0, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore0, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[1] =
-	    Sprite::Create(textureScore1, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore1, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[2] =
-	    Sprite::Create(textureScore2, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore2, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[3] =
-	    Sprite::Create(textureScore3, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore3, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[4] =
-	    Sprite::Create(textureScore4, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore4, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[5] =
-	    Sprite::Create(textureScore5, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore5, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[6] =
-	    Sprite::Create(textureScore6, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore6, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[7] =
-	    Sprite::Create(textureScore7, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore7, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[8] =
-	    Sprite::Create(textureScore8, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore8, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult1_[9] =
-	    Sprite::Create(textureScore9, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore9, {660.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
 	spriteResult2_[0] =
-	    Sprite::Create(textureScore0, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore0, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[1] =
-	    Sprite::Create(textureScore1, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore1, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[2] =
-	    Sprite::Create(textureScore2, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore2, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[3] =
-	    Sprite::Create(textureScore3, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore3, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[4] =
-	    Sprite::Create(textureScore4, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore4, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[5] =
-	    Sprite::Create(textureScore5, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore5, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[6] =
-	    Sprite::Create(textureScore6, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore6, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[7] =
-	    Sprite::Create(textureScore7, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore7, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[8] =
-	    Sprite::Create(textureScore8, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore8, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult2_[9] =
-	    Sprite::Create(textureScore9, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore9, {610.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
 	spriteResult3_[0] =
-	    Sprite::Create(textureScore0, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore0, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[1] =
-	    Sprite::Create(textureScore1, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore1, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[2] =
-	    Sprite::Create(textureScore2, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore2, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[3] =
-	    Sprite::Create(textureScore3, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore3, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[4] =
-	    Sprite::Create(textureScore4, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore4, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[5] =
-	    Sprite::Create(textureScore5, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore5, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[6] =
-	    Sprite::Create(textureScore6, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore6, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[7] =
-	    Sprite::Create(textureScore7, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore7, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[8] =
-	    Sprite::Create(textureScore8, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore8, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	spriteResult3_[9] =
-	    Sprite::Create(textureScore9, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	    Sprite::Create(textureScore9, {560.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
 
 	//パンチのSE
@@ -602,6 +602,9 @@ void GameScene::sceneReset() {
 	// 敵を倒した数
 	enemyDefeats_ = 0;
 	score = 0;
+
+	isPaseUp = false;
+	PaseUpTimer = 0;
 
 	//経過時間
 	timer = 0;
