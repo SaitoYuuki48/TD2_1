@@ -470,7 +470,7 @@ void GameScene::SpawnInterval() {
 		spawnInterval = 50; // 50
 	}
 	if (timer == 2000) {
-		spawnInterval = 45; // 40
+		spawnInterval = 32; // 40
 	}
 }
 
