@@ -86,14 +86,26 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+private:
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	//ペースアップ
+	uint32_t PaseUptextureHandle_ = 0;
+	
 	// スプライト
 	Sprite* sprite_ = nullptr;
+	// ペースアップスプライト
+	Sprite* PaseUpsprite_ = nullptr;
+
+	//ペースアップ変数
+	int PaseUpTimer = 0;
+	bool isPaseUp = false;
+
 	// モデル
 	Model* model_ = nullptr;
 
@@ -113,7 +125,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 10;
+	const int kPLAYERLIFE_ = 5;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数
@@ -147,11 +159,24 @@ private: // メンバ変数
 	Sprite* spriteScore2_[10] = {nullptr};
 	Sprite* spriteScore3_[10] = {nullptr};
 
+	//リザルトのスコアの描画
+	Sprite* spriteResult1_[10] = {nullptr};
+	Sprite* spriteResult2_[10] = {nullptr};
+	Sprite* spriteResult3_[10] = {nullptr};
+
 	//スコアのメンバ変数
 	int score = 0;
 	int score1 = 0;
 	int score2 = 0;
 	int score3 = 0;
+
+	int result1 = 0;
+	int result2 = 0;
+	int result3 = 0;
+
+	//ゲームオーバーの画像
+	Sprite* spriteGameOver_ = nullptr;
+	Sprite* spriteKillEnemy_ = nullptr;
 
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
@@ -181,4 +206,8 @@ private: // メンバ変数
 
 	//経過した時間
 	float timer = 0;
+
+	//ゲームオーバーかどうかのフラグ
+	bool isGameOver = false;
+	
 };

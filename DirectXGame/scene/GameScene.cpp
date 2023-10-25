@@ -75,6 +75,15 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_->Initialize();
 
+	//ゲームオーバーの画像追加
+	uint32_t textureGameOver = TextureManager::Load("resources/overEnter.png");
+	spriteGameOver_ =
+	    Sprite::Create(textureGameOver, {0.0f, -140.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	//倒した敵の画像
+	uint32_t textureKillEnemy = TextureManager::Load("resources/teki.png");
+	spriteKillEnemy_=
+	    Sprite::Create(textureKillEnemy, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
 	//ライフの画像
 	//  テクスチャ
 	uint32_t textureLife = TextureManager::Load("resources/Heart.png");
@@ -158,6 +167,71 @@ void GameScene::Initialize() {
 	spriteScore3_[9] =
 	    Sprite::Create(textureScore9, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
+	//リザルト
+	spriteResult1_[0] =
+	    Sprite::Create(textureScore0, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[1] =
+	    Sprite::Create(textureScore1, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[2] =
+	    Sprite::Create(textureScore2, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[3] =
+	    Sprite::Create(textureScore3, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[4] =
+	    Sprite::Create(textureScore4, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[5] =
+	    Sprite::Create(textureScore5, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[6] =
+	    Sprite::Create(textureScore6, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[7] =
+	    Sprite::Create(textureScore7, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[8] =
+	    Sprite::Create(textureScore8, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult1_[9] =
+	    Sprite::Create(textureScore9, {690.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+	spriteResult2_[0] =
+	    Sprite::Create(textureScore0, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[1] =
+	    Sprite::Create(textureScore1, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[2] =
+	    Sprite::Create(textureScore2, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[3] =
+	    Sprite::Create(textureScore3, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[4] =
+	    Sprite::Create(textureScore4, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[5] =
+	    Sprite::Create(textureScore5, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[6] =
+	    Sprite::Create(textureScore6, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[7] =
+	    Sprite::Create(textureScore7, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[8] =
+	    Sprite::Create(textureScore8, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult2_[9] =
+	    Sprite::Create(textureScore9, {640.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+	spriteResult3_[0] =
+	    Sprite::Create(textureScore0, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[1] =
+	    Sprite::Create(textureScore1, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[2] =
+	    Sprite::Create(textureScore2, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[3] =
+	    Sprite::Create(textureScore3, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[4] =
+	    Sprite::Create(textureScore4, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[5] =
+	    Sprite::Create(textureScore5, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[6] =
+	    Sprite::Create(textureScore6, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[7] =
+	    Sprite::Create(textureScore7, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[8] =
+	    Sprite::Create(textureScore8, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteResult3_[9] =
+	    Sprite::Create(textureScore9, {590.0f, 500.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+
 	//パンチのSE
 	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
 	panchiAiSoundHandle_ = audio_->LoadWave("se/panchi2.mp3");
@@ -168,6 +242,10 @@ void GameScene::Initialize() {
 	// BGM
 	bgmDataHandle_ = audio_->LoadWave("BGM/BGM.mp3");
 	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, true, 0.15f);
+
+	// ペースアップテクスチャ
+	PaseUptextureHandle_ = TextureManager::Load("resources/SpeedUp.png");
+	isPaseUp = false;
 
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
@@ -237,6 +315,11 @@ void GameScene::Update() {
 	hitBox_->Update();
 	noHitBox_->Update();
 
+	//ペースアップ
+	PaseUpTimer++;
+
+	
+
 	// 当たり判定
 	GameScene::CheakAllCollisions();
 
@@ -249,7 +332,7 @@ void GameScene::Update() {
 	});
 
 	if (playerLife_ <= 0) {
-
+		isGameOver = true;
 
 	} else {
 		// 敵の発生間隔
@@ -319,7 +402,6 @@ void GameScene::Draw() {
 			hitBox_->Draw(viewProjection_);
 		}
 	}
-	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -328,22 +410,38 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	
-	//ハートの描画
-	//spriteLife_->Draw();
 
-	//スコアの画像
-	spriteScore1_[score1]->Draw();
-	spriteScore2_[score2]->Draw();
-	spriteScore3_[score3]->Draw();
+	// ペースアップの描画
+	if (isPaseUp == true&&PaseUpTimer>=30) {
+		PaseUpsprite_->Draw();
+	}
+	
+	// スプライトの生成
+	PaseUpsprite_ = Sprite::Create(PaseUptextureHandle_, {0, -85});
+
+	
+	if (isGameOver == false) {
+		// ハートの描画
+		//spriteLife_->Draw();
+
+		// スコアの画像
+		spriteScore1_[score1]->Draw();
+		spriteScore2_[score2]->Draw();
+		spriteScore3_[score3]->Draw();
+	} else {
+		//ここにゲームオーバー時の画像描画を追加する
+		spriteGameOver_->Draw();
+		spriteKillEnemy_->Draw();
+		spriteResult1_[result1]->Draw();
+		spriteResult2_[result2]->Draw();
+		spriteResult3_[result3]->Draw();
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
-
 #pragma endregion
 }
 
@@ -444,6 +542,10 @@ void GameScene::ScoreUpdate() {
 	score1 = (score / 1) % 10;//1の桁
 	score2 = (score / 10) % 10;//10の桁
 	score3 = (score / 100) % 10;//100の桁
+
+	result1 = (score / 1) % 10;   // 1の桁
+	result2 = (score / 10) % 10;  // 10の桁
+	result3 = (score / 100) % 10; // 100の桁
 }
 
 void GameScene::SpawnInterval() {
@@ -465,12 +567,20 @@ void GameScene::SpawnInterval() {
 	}
 	if (timer == 1560) {
 		spawnInterval = 60; // 60
+		isPaseUp = true;
+		
 	}
 	if (timer == 1690) {
 		spawnInterval = 50; // 50
 	}
 	if (timer == 2000) {
-		spawnInterval = 45; // 40
+		spawnInterval = 40; // 40
+	}
+	if (timer == 2400) {
+		spawnInterval = 36; // 40
+	}
+	if (timer == 2800) {
+		spawnInterval = 34; // 40
 	}
 }
 
@@ -481,11 +591,17 @@ void GameScene::sceneReset() {
 	for (Enemy* enemy : enemys_) {
 		enemy->OnCollision();
 	}
+	//ゲームオーバーのフラグを初期化
+	isGameOver = false; 
+	
 	// プレイヤーの体力
 	playerLife_ = kPLAYERLIFE_;
 
+
+
 	// 敵を倒した数
 	enemyDefeats_ = 0;
+	score = 0;
 
 	//経過時間
 	timer = 0;
