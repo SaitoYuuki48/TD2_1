@@ -60,6 +60,9 @@ public: // メンバ関数
 
 	void RandSpawn();
 
+	//スコアの更新処理
+	void ScoreUpdate();
+
 
 	//敵のリスト
 	std::list<Enemy*> enemys_;
@@ -138,6 +141,17 @@ private: // メンバ変数
 
 	// ハートの画像
 	Sprite* spriteLife_ = nullptr;
+
+	//スコアの画像
+	Sprite* spriteScore1_[10] = {nullptr};
+	Sprite* spriteScore2_[10] = {nullptr};
+	Sprite* spriteScore3_[10] = {nullptr};
+
+	//スコアのメンバ変数
+	int score = 0;
+	int score1 = 0;
+	int score2 = 0;
+	int score3 = 0;
 
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
