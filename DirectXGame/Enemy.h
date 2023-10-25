@@ -13,9 +13,9 @@ private:
 
 public:
 	enum MoveType {
-		STRAIGHT,//ストレート(0)
-		RIGHT,//右回り(1)
-		LEFT,//左回り(2)
+		STRAIGHT,//ストレート(0)　水
+		RIGHT,//右回り(1)　緑
+		LEFT,//左回り(2) 紫
 	};
 
 	enum AttackType {

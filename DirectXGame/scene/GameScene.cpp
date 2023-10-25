@@ -84,8 +84,6 @@ void GameScene::Initialize() {
 	Time = static_cast<unsigned int>(time(nullptr));
 	srand((unsigned)time(NULL));
 
-#ifdef _DEBUG
-
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
@@ -95,7 +93,7 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-#endif // _DEBU
+#endif // _DEBUG
 
 	// 敵の生成
 	EnemySpawn();
@@ -162,6 +160,10 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+
+	if (input_->TriggerKey(DIK_RETURN)) {
+		isSceneEnd = true;
+	}
 }
 
 void GameScene::Draw() {

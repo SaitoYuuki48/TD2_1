@@ -60,8 +60,6 @@ public: // メンバ関数
 
 	void RandSpawn();
 
-	
-
 
 	//敵のリスト
 	std::list<Enemy*> enemys_;
