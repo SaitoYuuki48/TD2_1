@@ -60,6 +60,9 @@ public: // メンバ関数
 
 	void RandSpawn();
 
+	//スコアの更新処理
+	void ScoreUpdate();
+
 
 	//敵のリスト
 	std::list<Enemy*> enemys_;
@@ -110,7 +113,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 9;
+	const int kPLAYERLIFE_ = 10;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数
@@ -135,6 +138,20 @@ private: // メンバ変数
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
+
+	// ハートの画像
+	Sprite* spriteLife_ = nullptr;
+
+	//スコアの画像
+	Sprite* spriteScore1_[10] = {nullptr};
+	Sprite* spriteScore2_[10] = {nullptr};
+	Sprite* spriteScore3_[10] = {nullptr};
+
+	//スコアのメンバ変数
+	int score = 0;
+	int score1 = 0;
+	int score2 = 0;
+	int score3 = 0;
 
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
