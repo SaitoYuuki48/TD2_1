@@ -151,7 +151,16 @@ void GameScene::Update() {
 
 	RandSpawn();
 
+	#ifdef _DEBUG
 
+	ImGui::Begin("EnemySpawn");
+	ImGui::Text("rand:%f", number);
+	ImGui::Text("spawnTime:%f", SpawnTime);
+	ImGui::End();
+	// SpawnTime = static_cast<float>(EnemyDebug[0]);
+	// number = static_cast<float>(EnemyDebug[1]);
+
+#endif //_DEBUG
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
