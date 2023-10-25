@@ -38,11 +38,6 @@ void GameScene::Initialize() {
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
 
-	// 敵の生成
-	// enemy_ = new Enemy();
-	// 敵の初期化
-	// enemy_->Initialize(model_);
-
 	// ヒットボックス
 	// 3Dモデルの生成
 	modelHitBox_.reset(Model::CreateFromOBJ("hitBox", true));
@@ -79,6 +74,13 @@ void GameScene::Initialize() {
 	camera_ = std::make_unique<Camera>();
 	// カメラの初期化
 	camera_->Initialize();
+
+	//ライフの画像
+	//  テクスチャ
+	uint32_t textureLife = TextureManager::Load("resources/Heart.png");
+
+	//ハートの画像
+	spriteLife_ = Sprite::Create(textureLife, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
 	//パンチのSE
 	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
@@ -252,6 +254,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	spriteLife_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

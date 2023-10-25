@@ -110,7 +110,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 9;
+	const int kPLAYERLIFE_ = 10;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数
@@ -135,6 +135,9 @@ private: // メンバ変数
 	std::unique_ptr<Ground> ground_;
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
+
+	// ハートの画像
+	Sprite* spriteLife_ = nullptr;
 
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
