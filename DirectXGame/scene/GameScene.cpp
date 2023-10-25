@@ -80,7 +80,7 @@ void GameScene::Initialize() {
 	uint32_t textureLife = TextureManager::Load("resources/Heart.png");
 
 	//ハートの画像
-	spriteLife_ = Sprite::Create(textureLife, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+	spriteLife_ = Sprite::Create(textureLife, {60.0f, 60.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 
 	//スコアの画像
 	//テクスチャ(0～9)
