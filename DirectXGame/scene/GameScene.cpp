@@ -286,10 +286,6 @@ void GameScene::CheakAllCollisions() {
 	  }
 
 	}
-	
-
-
-
 }
 
 void GameScene::EnemySpawn() { 
@@ -341,4 +337,5 @@ void GameScene::RandSpawn() {
 		}
 		}
 	}
+	
 }

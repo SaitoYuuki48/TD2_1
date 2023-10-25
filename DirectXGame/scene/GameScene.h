@@ -134,7 +134,7 @@ private: // メンバ変数
 	int i = 0;
 	float number = 0;
 	float SpawnTime = 0;
-
+	
 
 	unsigned int Time;
 

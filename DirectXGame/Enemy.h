@@ -26,13 +26,6 @@ public:
 	bool IsDead() const { return isDead_; }
 
 
-	//// 乱数を生成して変数に代入
-	int i = 0;
-	float number = 0;
-	float SpawnTime = 0;
-	bool Straight = false; // 真っ直ぐ飛んでくる
-	bool Outer = false;    // 外回り
-	bool Change = false;   // 変換
 
 	//
 	//unsigned int Time;
@@ -49,5 +42,13 @@ private:
 
 	// デスフラグ
 	bool isDead_ = false;
+	//// 乱数を生成して変数に代入
+	int i = 0;
+	float number = 0;
+	float SpawnTime = 0;
+	bool Straight = false; // 真っ直ぐ飛んでくる
+	bool Outer = false;    // 外回り
+	bool Change = false;   // 変換
+	int Staytime = 0;//Stay
 
 };

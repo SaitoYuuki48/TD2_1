@@ -22,6 +22,7 @@ void Enemy::Initialize(Model* model) { // 初期化
 	textureHandle_[2] = TextureManager::Load("resources/Pink.png");
 	isDead_ = false;
 	
+	
 
 }
 
@@ -66,7 +67,9 @@ void Enemy::Update() {//// 更新
 	const float RotateSpeedX = 0.0f;
 	const float RotateSpeedY = 0.0f;
 #pragma endregion
+	Straight = true;
 	if (Straight==true) {
+	   Staytime++;
 	//移動
 	Vector3 move = {0, 0, EnemySpeedZ};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
