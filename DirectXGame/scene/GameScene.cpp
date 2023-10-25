@@ -83,11 +83,10 @@ void GameScene::Initialize() {
 	Time = static_cast<unsigned int>(time(nullptr));
 	srand((unsigned)time(NULL));
 
-#ifdef _DEBUG
-
-
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
+
+#ifdef _DEBUG
 
 	// 軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -115,6 +114,7 @@ void GameScene::Update() {
 	if (input_->TriggerKey(DIK_V) && isDebugCameraActive_ == true) {
 		isDebugCameraActive_ = false;
 	}
+#endif // _DEBUG
 
 	// カメラの処理
 	if (isDebugCameraActive_ == true) {
@@ -127,9 +127,7 @@ void GameScene::Update() {
 		viewProjection_.matProjection = camera_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-		
 	}
-#endif // _DEBUG
 
 	// 自キャラの更新
 	player_->Update();
