@@ -209,7 +209,7 @@ void GameScene::Draw() {
 	// ヒットボックス
 	if (changeHitbox == false) {
 		noHitBox_->Draw(viewProjection_);
-	} else {
+	} else if (changeHitbox == true) {
 		hitBox_->Draw(viewProjection_);
 	}
 
@@ -276,7 +276,7 @@ void GameScene::CheakAllCollisions() {
 			if (cheakPanchi == 1&& attackType==0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 			}
-			if (cheakPanchi == 1 && attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
+			if (cheakPanchi == 2 && attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 			}
 
