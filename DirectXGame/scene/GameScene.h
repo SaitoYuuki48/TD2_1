@@ -141,6 +141,19 @@ private:
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
 
+	//BGM
+	uint32_t bgmDataHandle_ = 0;
+	uint32_t bgmHandle_ = 0;
+
+	//パンチのSE
+	uint32_t panchiSoundHandle_ = 0;
+
+	//爆発のSE
+	uint32_t explosionSeHandle_ = 0;
+
+	//音声再生ハンドル
+	uint32_t seHandle_ = 0;
+
 	//ヒットボックス描画切り替え
 	bool changeHitbox = false;
 
