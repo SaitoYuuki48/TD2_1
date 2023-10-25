@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "AxisIndicator.h"
+#include "ImGuiManager.h"
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
