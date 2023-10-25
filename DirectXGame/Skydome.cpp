@@ -17,7 +17,7 @@ void Skydome::Update() {
 	worldTransform_.UpdateMatrix(); 
 
 	// 回転速さ[ラジアン/frame]
-	const float kRotSpeed = 0.001f;
+	const float kRotSpeed = 0.01f;
 
 	//回転
 	//worldTransform_.rotation_.x -= kRotSpeed;

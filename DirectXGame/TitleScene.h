@@ -53,6 +53,9 @@ private: // メンバ変数
 	Sprite* spriteTitle_ = nullptr;
 	Sprite* spriteLule_ = nullptr;
 	
+	// BGM
+	uint32_t bgmDataHandle_ = 0;
+	uint32_t bgmHandle_ = 0;
 
 	//ルール
 	bool isLule = false;

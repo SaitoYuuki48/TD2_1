@@ -83,6 +83,13 @@ void GameScene::Initialize() {
 	//パンチのSE
 	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
 
+	//爆発のSE
+	explosionSeHandle_ = audio_->LoadWave("se/explosion.mp3");
+
+	// BGM
+	bgmDataHandle_ = audio_->LoadWave("BGM/BGM.mp3");
+	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, true, 0.15f);
+
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
@@ -297,15 +304,15 @@ void GameScene::CheakAllCollisions() {
 			if (cheakPanchi == 1&& attackType == 0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
-				voiceHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
-				//audio_->StopWave(voiceHandle_);
+				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
 			} else if (cheakPanchi == 2 &&attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
-				voiceHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
-				//audio_->StopWave(voiceHandle_);
+				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
 			} else if (cheakPanchi != 0 &&attackType == 2) { // パンチしてはいけないときプレイヤーのライフを減らす
+				enemy->OnCollision();
 				playerLife_--;
+				seHandle_ = audio_->PlayWave(explosionSeHandle_, false);
 			} 
 		} 
 
@@ -388,4 +395,7 @@ void GameScene::sceneReset() {
 	timer = 0;
 	//発生の間隔
 	spawnInterval = 120;
+	// BGMの停止
+	audio_->StopWave(bgmHandle_);
+	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, true, 0.15f);
 }

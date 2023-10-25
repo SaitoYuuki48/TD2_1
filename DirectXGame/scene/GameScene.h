@@ -110,7 +110,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 10;
+	const int kPLAYERLIFE_ = 9;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数
@@ -136,11 +136,18 @@ private: // メンバ変数
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
 
+	//BGM
+	uint32_t bgmDataHandle_ = 0;
+	uint32_t bgmHandle_ = 0;
+
 	//パンチのSE
 	uint32_t panchiSoundHandle_ = 0;
 
+	//爆発のSE
+	uint32_t explosionSeHandle_ = 0;
+
 	//音声再生ハンドル
-	uint32_t voiceHandle_ = 0;
+	uint32_t seHandle_ = 0;
 
 	//ヒットボックス描画切り替え
 	bool changeHitbox = false;

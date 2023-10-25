@@ -20,6 +20,10 @@ void TitleScene::Initialize()
 	    Sprite::Create(textureTitle, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
 	// スプライト生成
 	spriteLule_ = Sprite::Create(Luletexture, {0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f});
+
+	// BGM
+	/*bgmDataHandle_ = audio_->LoadWave("BGM/BGM.mp3");
+	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, false, 0.15f);*/
 }
 
 void TitleScene::Update() {
@@ -83,4 +87,8 @@ void TitleScene::Draw()
 #pragma endregion
 }
 
-void TitleScene::sceneReset() { isSceneEnd = false; }
+void TitleScene::sceneReset() { 
+	isSceneEnd = false;
+	//BGMの停止
+	//audio_->StopWave(bgmHandle_);
+}
