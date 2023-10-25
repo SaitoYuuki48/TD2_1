@@ -2,6 +2,8 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "AxisIndicator.h"
+#include "ImGuiManager.h"
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -156,6 +158,17 @@ void GameScene::Update() {
 	
 	//当たり判定
 	GameScene::CheakAllCollisions();
+
+	#ifdef _DEBUG
+
+	ImGui::Begin("EnemySpawn");
+	ImGui::Text("rand:%f", number);
+	//ImGui::Text("%f\n,%f", EnemyDebug, SpawnTime);
+	ImGui::End();
+	//SpawnTime = static_cast<float>(EnemyDebug[0]);
+	//number = static_cast<float>(EnemyDebug[1]);
+
+#endif //_DEBUG
 
 }
 
