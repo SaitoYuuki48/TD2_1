@@ -82,6 +82,7 @@ void GameScene::Initialize() {
 
 	//パンチのSE
 	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
+	panchiAiSoundHandle_ = audio_->LoadWave("se/panchi2.mp3");
 
 	//爆発のSE
 	explosionSeHandle_ = audio_->LoadWave("se/explosion.mp3");
@@ -148,8 +149,6 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 
-	
-
 	// 天球の更新
 	skydome_->Update();
 	// 床の更新
@@ -157,8 +156,6 @@ void GameScene::Update() {
 	// ヒットボックス
 	hitBox_->Update();
 	noHitBox_->Update();
-
-	
 
 	// 当たり判定
 	GameScene::CheakAllCollisions();
@@ -173,6 +170,7 @@ void GameScene::Update() {
 
 	if (playerLife_ <= 0) {
 
+
 	} else {
 		// 敵の発生間隔
 		SpawnInterval();
@@ -181,6 +179,7 @@ void GameScene::Update() {
 		RandSpawn();
 	}
 
+#ifdef _DEBUG
 	ImGui::Begin("Player");
 
 	ImGui::Text("%d", playerLife_);
@@ -188,6 +187,7 @@ void GameScene::Update() {
 	ImGui::Text("%f", spawnInterval);
 
 	ImGui::End();
+#endif // _DEBUG
 }
 
 void GameScene::Draw() {
@@ -305,11 +305,11 @@ void GameScene::CheakAllCollisions() {
 			if (cheakPanchi == 1&& attackType == 0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
-				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
+				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false, 1.0f);
 			} else if (cheakPanchi == 2 &&attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
-				seHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
+				seHandle_ = audio_->PlayWave(panchiAiSoundHandle_, false, 1.0f);
 			} else if (cheakPanchi != 0 &&attackType == 2) { // パンチしてはいけないときプレイヤーのライフを減らす
 				enemy->OnCollision();
 				playerLife_--;

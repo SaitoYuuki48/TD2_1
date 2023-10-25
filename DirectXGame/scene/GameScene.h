@@ -143,6 +143,8 @@ private: // メンバ変数
 	//パンチのSE
 	uint32_t panchiSoundHandle_ = 0;
 
+	uint32_t panchiAiSoundHandle_ = 0;
+
 	//爆発のSE
 	uint32_t explosionSeHandle_ = 0;
 
