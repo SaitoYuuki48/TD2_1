@@ -83,14 +83,19 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+private:
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	
 	// スプライト
 	Sprite* sprite_ = nullptr;
+	// ♡のテクスチャハンドル
+	uint32_t HarttextureHandle_[9] = {0,0,0,0,0,0,0,0,0};
 	// モデル
 	Model* model_ = nullptr;
 
@@ -110,7 +115,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 10;
+	const int kPLAYERLIFE_ = 9;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数

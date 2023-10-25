@@ -28,6 +28,23 @@ void GameScene::Initialize() {
 	// モデル生成
 	model_ = Model::Create();
 
+#pragma region NumberTexture
+	HarttextureHandle_[0] = TextureManager::Load("resources/0.png");
+	HarttextureHandle_[1] = TextureManager::Load("resources/1.png");
+	HarttextureHandle_[2] = TextureManager::Load("resources/2.png");
+	HarttextureHandle_[3] = TextureManager::Load("resources/3.png");
+	HarttextureHandle_[4] = TextureManager::Load("resources/4.png");
+	HarttextureHandle_[5] = TextureManager::Load("resources/5.png");
+	HarttextureHandle_[6] = TextureManager::Load("resources/6.png");
+	HarttextureHandle_[7] = TextureManager::Load("resources/7.png");
+	HarttextureHandle_[8] = TextureManager::Load("resources/8.png");
+	HarttextureHandle_[9] = TextureManager::Load("resources/9.png");
+#pragma endregion
+	
+	// ♡のスプライト
+	Sprite* Hart[9] = {nullptr, nullptr, nullptr, nullptr, nullptr,
+	                   nullptr, nullptr, nullptr, nullptr};
+
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
