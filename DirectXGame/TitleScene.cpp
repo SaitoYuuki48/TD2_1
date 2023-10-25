@@ -70,3 +70,5 @@ void TitleScene::Draw()
 
 #pragma endregion
 }
+
+void TitleScene::sceneReset() { isSceneEnd = false; }

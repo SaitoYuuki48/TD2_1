@@ -18,7 +18,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	worldTransform_.scale_ = {3.0f, 8.0f, 3.0f};
 	worldTransform_.rotation_ = {0.5f, -0.1f,-0.2f};
-	worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
+	//worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
 
 	//シングルトンインスタンスを取得する
 	input_ = Input::GetInstance();
@@ -61,7 +61,7 @@ void Player::Update() {
 	 //溜めているときの腕の速度
 	 Vector3 charge = {0.0f, -0.04f, 0.0f};
 	 // 手が下に行き過ぎないようにするif文
-	 if (worldTransform_.translation_.y <= -18.0f) {
+	 if (worldTransform_.translation_.y <= -19.0f) {
 			charge = {0.0f, 0.0f, 0.0f};
 	 }
 	 //手の位置の更新処理
@@ -69,7 +69,7 @@ void Player::Update() {
 
 	} else {
 	////溜めてないときは初期位置に座標を設定(後でconstで設定するといいかも)
-	 worldTransform_.translation_ = {16.0f, -15.0f, -5.0f};
+	 worldTransform_.translation_ = {15.0f, -5.0f, -78.0f};
 	}
 
 	if (cheakPanchi != 0) {
@@ -127,7 +127,6 @@ int Player::CheakPanchi() {
 
 	return flag;
 }
-
 
 
 Vector3 Player::GetWorldPosition() {

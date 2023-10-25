@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow();
+	win->CreateGameWindow(L"2144_世紀末パンチ");
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
@@ -88,6 +88,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (titleScene->IsSceneEnd()) {
 				// 次のシーンの値を代入してシーン切り替え
 				sceneNo = titleScene->NextScene();
+
+				// タイトルシーンの初期化、フラグリセット等
+				titleScene->sceneReset();
 			}
 
 			break;
@@ -98,7 +101,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameScene->IsSceneEnd()) {
 				// 次のシーンの値を代入してシーン切り替え
-				sceneNo = titleScene->NextScene();
+				sceneNo = gameScene->NextScene();
+
+				// ゲームシーンの初期化、フラグリセット等
+				gameScene->sceneReset();
 			}
 		}
 
