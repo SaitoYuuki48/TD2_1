@@ -271,9 +271,6 @@ void GameScene::CheakAllCollisions() {
 	  }
 
 	}
-	
-
-
 
 }
 

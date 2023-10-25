@@ -26,9 +26,7 @@ void Enemy::Initialize(Model* model) { // 初期化
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) {//描画
-	if (isDead_ == false) {
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
-	}
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
 

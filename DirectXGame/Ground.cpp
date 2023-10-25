@@ -17,7 +17,9 @@ void Ground::Initialize(Model* model) {
 	// x,y,zの方向のを設定
 	worldTransform_.translation_ = {0.0f, -10.0f, 0.0f};
 }
-void Ground::Update() { worldTransform_.UpdateMatrix(); }
+void Ground::Update() {
+	worldTransform_.UpdateMatrix();
+}
 
 void Ground::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection);
