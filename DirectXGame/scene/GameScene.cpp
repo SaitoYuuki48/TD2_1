@@ -28,23 +28,6 @@ void GameScene::Initialize() {
 	// モデル生成
 	model_ = Model::Create();
 
-#pragma region NumberTexture
-	HarttextureHandle_[0] = TextureManager::Load("resources/0.png");
-	HarttextureHandle_[1] = TextureManager::Load("resources/1.png");
-	HarttextureHandle_[2] = TextureManager::Load("resources/2.png");
-	HarttextureHandle_[3] = TextureManager::Load("resources/3.png");
-	HarttextureHandle_[4] = TextureManager::Load("resources/4.png");
-	HarttextureHandle_[5] = TextureManager::Load("resources/5.png");
-	HarttextureHandle_[6] = TextureManager::Load("resources/6.png");
-	HarttextureHandle_[7] = TextureManager::Load("resources/7.png");
-	HarttextureHandle_[8] = TextureManager::Load("resources/8.png");
-	HarttextureHandle_[9] = TextureManager::Load("resources/9.png");
-#pragma endregion
-	
-	// ♡のスプライト
-	Sprite* Hart[9] = {nullptr, nullptr, nullptr, nullptr, nullptr,
-	                   nullptr, nullptr, nullptr, nullptr};
-
 	// ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
@@ -106,6 +89,10 @@ void GameScene::Initialize() {
 	// BGM
 	bgmDataHandle_ = audio_->LoadWave("BGM/BGM.mp3");
 	bgmHandle_ = audio_->PlayWave(bgmDataHandle_, true, 0.15f);
+
+	// ペースアップテクスチャ
+	PaseUptextureHandle_ = TextureManager::Load("resources/SpeedUp.png");
+	isPaseUp = false;
 
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
@@ -174,6 +161,9 @@ void GameScene::Update() {
 	// ヒットボックス
 	hitBox_->Update();
 	noHitBox_->Update();
+
+	//ペースアップ
+	PaseUpTimer++;
 
 	
 
@@ -256,7 +246,6 @@ void GameScene::Draw() {
 			hitBox_->Draw(viewProjection_);
 		}
 	}
-	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -265,15 +254,20 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	// ペースアップの描画
+	if (isPaseUp == true&&PaseUpTimer>=30) {
+		PaseUpsprite_->Draw();
+	}
 	
+	// スプライトの生成
+	PaseUpsprite_ = Sprite::Create(PaseUptextureHandle_, {0, -85});
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
-
 #pragma endregion
 }
 
@@ -387,6 +381,8 @@ void GameScene::SpawnInterval() {
 	}
 	if (timer == 1560) {
 		spawnInterval = 60; // 60
+		isPaseUp = true;
+		
 	}
 	if (timer == 1690) {
 		spawnInterval = 50; // 50

@@ -91,11 +91,18 @@ private:
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
+	//ペースアップ
+	uint32_t PaseUptextureHandle_ = 0;
 	
 	// スプライト
 	Sprite* sprite_ = nullptr;
-	// ♡のテクスチャハンドル
-	uint32_t HarttextureHandle_[9] = {0,0,0,0,0,0,0,0,0};
+	// ペースアップスプライト
+	Sprite* PaseUpsprite_ = nullptr;
+
+	//ペースアップ変数
+	int PaseUpTimer = 0;
+	bool isPaseUp = false;
+
 	// モデル
 	Model* model_ = nullptr;
 
@@ -167,4 +174,7 @@ private:
 
 	//経過した時間
 	float timer = 0;
+
+	
+
 };
