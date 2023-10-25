@@ -603,6 +603,9 @@ void GameScene::sceneReset() {
 	enemyDefeats_ = 0;
 	score = 0;
 
+	isPaseUp = false;
+	PaseUpTimer = 0;
+
 	//経過時間
 	timer = 0;
 	//発生の間隔
