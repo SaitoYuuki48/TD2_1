@@ -293,7 +293,7 @@ void GameScene::RandSpawn() {
 		if (enemy->IsDead()) {
 		number = static_cast<float>(rand());
 		number = static_cast<float>(rand() % 10 + 1);
-
+		
 		SpawnTime++;
 
 		if (SpawnTime > 50 && number == 1) {
