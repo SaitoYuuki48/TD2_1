@@ -80,6 +80,9 @@ void GameScene::Initialize() {
 	// カメラの初期化
 	camera_->Initialize();
 
+	//パンチのSE
+	panchiSoundHandle_ = audio_->LoadWave("se/panchi.mp3");
+
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
 
@@ -134,8 +137,7 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 
-	//敵の発生間隔
-	SpawnInterval();
+	
 
 	// 天球の更新
 	skydome_->Update();
@@ -145,7 +147,7 @@ void GameScene::Update() {
 	hitBox_->Update();
 	noHitBox_->Update();
 
-	RandSpawn();
+	
 
 	// 当たり判定
 	GameScene::CheakAllCollisions();
@@ -160,6 +162,12 @@ void GameScene::Update() {
 
 	if (playerLife_ <= 0) {
 
+	} else {
+		// 敵の発生間隔
+		SpawnInterval();
+	
+		//ランダムな種類の敵の発生
+		RandSpawn();
 	}
 
 	ImGui::Begin("Player");
@@ -198,33 +206,29 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	// 自キャラの描画
-	player_->Draw(viewProjection_);
-
-	// 敵の描画
-	// enemy_->Draw(viewProjection_);
-
-	// 敵キャラの更新
-	for (Enemy* enemy : enemys_) {
-		enemy->Draw(viewProjection_);
-	}
-
 	// 天球の描画
 	skydome_->Draw(viewProjection_);
 
 	// 床の描画
 	ground_->Draw(viewProjection_);
 
-	// ヒットボックス
-	if (changeHitbox == false) {
-		noHitBox_->Draw(viewProjection_);
-	} else if (changeHitbox == true) {
-		hitBox_->Draw(viewProjection_);
+	// 敵キャラの描画
+	for (Enemy* enemy : enemys_) {
+		enemy->Draw(viewProjection_);
 	}
 
-	/*for (Enemy* enemy : enemys_) {
-	    enemy->Draw(viewProjection_);
-	}*/
+	if (playerLife_ >= 0) {
+		// 自キャラの描画
+		player_->Draw(viewProjection_);
+
+		// ヒットボックス
+		if (changeHitbox == false) {
+			noHitBox_->Draw(viewProjection_);
+		} else if (changeHitbox == true) {
+			hitBox_->Draw(viewProjection_);
+		}
+	}
+	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -289,9 +293,13 @@ void GameScene::CheakAllCollisions() {
 			if (cheakPanchi == 1&& attackType == 0) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
+				voiceHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
+				//audio_->StopWave(voiceHandle_);
 			} else if (cheakPanchi == 2 &&attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
 				enemy->OnCollision();
 				enemyDefeats_++;
+				voiceHandle_ = audio_->PlayWave(panchiSoundHandle_, false);
+				//audio_->StopWave(voiceHandle_);
 			} else if (cheakPanchi != 0 &&attackType == 2) { // パンチしてはいけないときプレイヤーのライフを減らす
 				playerLife_--;
 			} 
@@ -357,15 +365,6 @@ void GameScene::SpawnInterval() {
 	if (timer == 2000) {
 		spawnInterval = 45; // 40
 	}
-	//if (timer == 2400) {
-	//	spawnInterval = 30; // 30
-	//}
-	//if (timer == 3600) {
-	//	spawnInterval = 20; // 20
-	//}
-	//if (timer == 4800) {
-	//	spawnInterval = 10; // 10
-	//}
 }
 
 void GameScene::sceneReset() {

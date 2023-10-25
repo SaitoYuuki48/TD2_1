@@ -136,6 +136,12 @@ private: // メンバ変数
 	// 3Dモデル
 	std::unique_ptr<Model> modelGround_;
 
+	//パンチのSE
+	uint32_t panchiSoundHandle_ = 0;
+
+	//音声再生ハンドル
+	uint32_t voiceHandle_ = 0;
+
 	//ヒットボックス描画切り替え
 	bool changeHitbox = false;
 
