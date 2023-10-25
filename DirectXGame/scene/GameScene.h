@@ -113,7 +113,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//プレイヤーの体力
-	const int kPLAYERLIFE_ = 10;
+	const int kPLAYERLIFE_ = 5;
 	int playerLife_ = kPLAYERLIFE_;
 
 	//敵を倒した数
@@ -147,14 +147,24 @@ private: // メンバ変数
 	Sprite* spriteScore2_[10] = {nullptr};
 	Sprite* spriteScore3_[10] = {nullptr};
 
+	//リザルトのスコアの描画
+	Sprite* spriteResult1_[10] = {nullptr};
+	Sprite* spriteResult2_[10] = {nullptr};
+	Sprite* spriteResult3_[10] = {nullptr};
+
 	//スコアのメンバ変数
 	int score = 0;
 	int score1 = 0;
 	int score2 = 0;
 	int score3 = 0;
 
+	int result1 = 0;
+	int result2 = 0;
+	int result3 = 0;
+
 	//ゲームオーバーの画像
 	Sprite* spriteGameOver_ = nullptr;
+	Sprite* spriteKillEnemy_ = nullptr;
 
 	//BGM
 	uint32_t bgmDataHandle_ = 0;
