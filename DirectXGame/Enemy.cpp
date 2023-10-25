@@ -1,8 +1,7 @@
-﻿#include"Enemy.h"
-#include <cassert>
-#include "compute.h"
+﻿#include "Enemy.h"
 #include "ImGuiManager.h"
-
+#include "compute.h"
+#include <cassert>
 
 void Enemy::Initialize(Model* model) { // 初期化
 	// NULLポインタチェック
@@ -10,57 +9,36 @@ void Enemy::Initialize(Model* model) { // 初期化
 
 	// 引数からデータを受け取る
 	model_ = model;
-	
 
 	// ワールド変換の初期化
 	worldTransform_.Initialize();
 	// スケール
 	Vector3 Scale = {4, 4, 4};
 	worldTransform_.scale_ = Scale;
-	textureHandle_ = TextureManager::Load("resources/Enemy.png");
+	textureHandle_[0] = TextureManager::Load("resources/Enemy.png");
+	textureHandle_[1] = TextureManager::Load("resources/Green.png");
+	textureHandle_[2] = TextureManager::Load("resources/Pink.png");
 	isDead_ = false;
-	// 乱数の初期化(シード値の設定)
-	Time = static_cast<unsigned int>(time(nullptr));
-	srand((unsigned)time(NULL));
-
-}
-
-void Enemy::Draw(ViewProjection& viewProjection) {//描画
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
 
 
-void Enemy::Update() {//// 更新
+void Enemy::Update() { //// 更新
 
-#pragma region 移動変数
-	const float EnemySpeedZ = -0.5f;
-	float UpMoveSpeed = 0.5f;
-	float DownMoveSpeed = -0.9f;
-#pragma endregion
-#pragma region 回転変数
-	const float RotateSpeedX = 0.0f;
-	const float RotateSpeedY = 0.0f;
-#pragma endregion
+	// ストレート
+	if (moveType_ == STRAIGHT) {
+		StraightUpdate();
+	} else if (moveType_ == RIGHT) {
+		RightUpdate();
+	} else if (moveType_ == LEFT) {
+		LeftUpdate();
+	}
 
-	//移動
-	Vector3 move = {0, 0, EnemySpeedZ};
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	worldTransform_.UpdateMatrix();
 	float EnemyPos[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
-	//回転
-	Vector3 Rotate = {RotateSpeedX, RotateSpeedY,0};
-	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
-	
-
-	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-
-
-	worldTransform_.TransferMatrix();
 
 	float EnemyDebug[] = {static_cast<float>(SpawnTime), static_cast<float>(number)};
-
 
 #ifdef _DEBUG
 
@@ -74,51 +52,48 @@ void Enemy::Update() {//// 更新
 
 #endif //_DEBUG
 
-	
-
 #ifdef _DEBUG
-	
 
 	ImGui::Begin("EnemySpawn");
-	ImGui::Text("%f,%f", EnemyDebug,number);
-	ImGui::Text("%f\n,%f", EnemyDebug,SpawnTime);
+	ImGui::Text("%f,%f", EnemyDebug, number);
+	ImGui::Text("%f\n,%f", EnemyDebug, SpawnTime);
 	ImGui::End();
-	/*SpawnTime = static_cast<float>(EnemyDebug[0]);
-	number = static_cast<float> (EnemyDebug[1]);*/
+	SpawnTime = static_cast<float>(EnemyDebug[0]);
+	number = static_cast<float>(EnemyDebug[1]);
 
-	
 #endif //_DEBUG
 
-	// 上に行く
-	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y+UpMoveSpeed;
-	}
-	//下に降りる
-	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
-		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
-	}
-
-	
-
-	//敵撃破後のランダム生成処理
-	//if (isDead_ == true)
+	// 敵撃破後のランダム生成処理
+	// if (isDead_ == true)
 	//{
 	//	worldTransform_.translation_.z = 4;
 	//	number = static_cast<float>(rand());
 	//	number = static_cast<float>(rand() % 10 + 1);
-	//	
+	//
 	//	SpawnTime++;
 	//	if (SpawnTime > 5&&number==1)
 	//	{
 	//		isDead_ = false;
-	//		
+	//
 	//		SpawnTime = 0;
 	//	}
-	//}
+	// }
 }
 
+void Enemy::Draw(ViewProjection& viewProjection) { // 描画
+	model_->Draw(worldTransform_, viewProjection, textureHandle_[attackType_]);
+}
 
 void Enemy::OnCollision() { isDead_ = true; }
+
+void Enemy::SetType(int moveType, int attackType) {
+	moveType_ = static_cast<MoveType>(moveType);
+	attackType_ = static_cast<AttackType>(attackType);
+}
+
+int Enemy::GetType() { return attackType_; }
+
+
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
@@ -128,4 +103,82 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
+}
+
+void Enemy::StraightUpdate() {
+	// 移動速度
+	EnemySpeedZ = -0.5f;
+	UpMoveSpeed = 0.5f;
+	DownMoveSpeed = -0.9f;
+
+	// 移動
+	Vector3 move = {0, 0, EnemySpeedZ};
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// 回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+	}
+	// 下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+}
+
+void Enemy::RightUpdate() {
+	// 移動速度
+	EnemySpeedZ = -0.5f;
+	UpMoveSpeed = 0.5f;
+	DownMoveSpeed = -0.9f;
+
+	// 移動
+	Vector3 move = {0, 0, EnemySpeedZ};
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// 回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+	}
+	// 下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
+}
+
+void Enemy::LeftUpdate() {
+	// 移動速度
+	EnemySpeedZ = -0.5f;
+	UpMoveSpeed = 0.5f;
+	DownMoveSpeed = -0.9f;
+
+	// 移動
+	Vector3 move = {0, 0, EnemySpeedZ};
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// 回転
+	Vector3 Rotate = {RotateSpeedX, RotateSpeedY, 0};
+	worldTransform_.rotation_ = Add(worldTransform_.translation_, Rotate);
+
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	// 上に行く
+	if (worldTransform_.translation_.z <= -5 && worldTransform_.translation_.z > -30) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + UpMoveSpeed;
+	}
+	// 下に降りる
+	if (worldTransform_.translation_.z < -30 && worldTransform_.translation_.y >= 0) {
+		worldTransform_.translation_.y = worldTransform_.translation_.y + DownMoveSpeed;
+	}
 }

@@ -1,16 +1,17 @@
 #include "GameScene.h"
+#include "AxisIndicator.h"
+#include "ImGuiManager.h"
 #include "TextureManager.h"
 #include <cassert>
-#include "AxisIndicator.h"
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete sprite_;
 	// 自キャラの解放
 	delete player_;
-	//敵キャラの解放
-	delete enemy_;
-	//天球の解放
+	
+	// 天球の解放
 	delete skydome_;
 }
 
@@ -38,9 +39,9 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandle_);
 
 	// 敵の生成
-	//enemy_ = new Enemy();
+	// enemy_ = new Enemy();
 	// 敵の初期化
-	//enemy_->Initialize(model_);
+	// enemy_->Initialize(model_);
 
 	// ヒットボックス
 	// 3Dモデルの生成
@@ -50,11 +51,11 @@ void GameScene::Initialize() {
 	hitBox_ = std::make_unique<HitBox>();
 	// ヒットボックスの初期化
 	hitBox_->Initialize(modelHitBox_.get());
-	
-	//当たっていないときのヒットボックス
+
+	// 当たっていないときのヒットボックス
 	modelNoHitBox_.reset(Model::CreateFromOBJ("NoHitBox", true));
 	modelNoHitBox_->SetMaterialAlpha("NoHitBox", 0.2f);
-	//生成
+	// 生成
 	noHitBox_ = std::make_unique<NoHitBox>();
 	// 初期化
 	noHitBox_->Initialize(modelNoHitBox_.get());
@@ -74,14 +75,16 @@ void GameScene::Initialize() {
 	// 天球の初期化
 	skydome_->Initialize(modelSkydome_);
 
-	//カメラの生成
+	// カメラの生成
 	camera_ = std::make_unique<Camera>();
-	//カメラの初期化
+	// カメラの初期化
 	camera_->Initialize();
 
 	// 乱数の初期化(シード値の設定)
 	Time = static_cast<unsigned int>(time(nullptr));
 	srand((unsigned)time(NULL));
+
+#ifdef _DEBUG
 
 	// デバッグカメラの更新
 	debugCamera_ = std::make_unique<DebugCamera>(1280, 720);
@@ -94,7 +97,7 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 #endif // _DEBU
 
-	//敵の生成
+	// 敵の生成
 	EnemySpawn();
 }
 
@@ -102,9 +105,9 @@ void GameScene::Update() {
 
 	// カメラの更新
 	camera_->Update();
-	//デバッグカメラの更新
+	// デバッグカメラの更新
 	debugCamera_->Update();
-	
+
 #ifdef _DEBUG
 
 	if (input_->TriggerKey(DIK_C) && isDebugCameraActive_ == false) {
@@ -132,17 +135,16 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 	// 敵キャラの更新
-	//enemy_->Update();
-	
+	// enemy_->Update();
+
 	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
 	}
 
-
-	//天球の更新
+	// 天球の更新
 	skydome_->Update();
-	//床の更新
+	// 床の更新
 	ground_->Update();
 	// ヒットボックス
 	hitBox_->Update();
@@ -150,11 +152,16 @@ void GameScene::Update() {
 
 	RandSpawn();
 
-
-	
-	//当たり判定
+	// 当たり判定
 	GameScene::CheakAllCollisions();
 
+	enemys_.remove_if([](Enemy* enemy) {
+		if (enemy->IsDead()) {
+			delete enemy;
+			return true;
+		}
+		return false;
+	});
 }
 
 void GameScene::Draw() {
@@ -188,24 +195,24 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 
 	// 敵の描画
-	//enemy_->Draw(viewProjection_);
+	// enemy_->Draw(viewProjection_);
 
 	// 敵キャラの更新
 	for (Enemy* enemy : enemys_) {
 		enemy->Draw(viewProjection_);
 	}
 
-	//天球の描画
+	// 天球の描画
 	skydome_->Draw(viewProjection_);
 
-	//床の描画
+	// 床の描画
 	ground_->Draw(viewProjection_);
 
-	//ヒットボックス
+	// ヒットボックス
 	if (changeHitbox == false) {
-	noHitBox_->Draw(viewProjection_);
-	} else {
-	hitBox_->Draw(viewProjection_);
+		noHitBox_->Draw(viewProjection_);
+	} else if (changeHitbox == true) {
+		hitBox_->Draw(viewProjection_);
 	}
 
 	/*for (Enemy* enemy : enemys_) {
@@ -230,76 +237,75 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::CheakAllCollisions() { 
-	//変数の宣言
+void GameScene::CheakAllCollisions() {
+	// 変数の宣言
 	Vector3 vecPlayer, vecEnemy;
 
-	//２間点の距離
+	// ２間点の距離
 	float posAB;
 
-	//敵の半径
+	// 敵の半径
 	float enemyRadius = 7.0f;
 
-	//殴る当たり判定の半径
+	// 殴る当たり判定の半径
 	float hitRadius = 4.0f;
 
-	//パンチの種類を判別する変数
+	// パンチの種類を判別する変数
 	int cheakPanchi;
 
+	//敵の種類
+	int attackType;
+
+	//関数での代入
 	cheakPanchi = player_->CheakPanchi();
 
-	//敵の座標を変数に入れる
+	// 敵の座標を変数に入れる
 	for (Enemy* enemy : enemys_) {
-	vecEnemy = enemy->GetWorldPosition();
+		vecEnemy = enemy->GetWorldPosition();
+	    attackType = enemy->GetType();
+		
+		// ヒットボックスの座標を変数に入れる
+		vecPlayer = hitBox_->GetWorldPosition();
 
-	//ヒットボックスの座標を変数に入れる
-	vecPlayer = hitBox_->GetWorldPosition();
+		// ２間点の距離を求める
+		posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
+		        (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
+		        (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
 
-	  //２間点の距離を求める
-	  posAB = (vecPlayer.x - vecEnemy.x) * (vecPlayer.x - vecEnemy.x) +
-	          (vecPlayer.y - vecEnemy.y) * (vecPlayer.y - vecEnemy.y) +
-	          (vecPlayer.z - vecEnemy.z) * (vecPlayer.z - vecEnemy.z);
-	  
-	  if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
-	      changeHitbox = true;//ヒットボックス色切り替え
-	  	if (cheakPanchi == 1) {
-	  	enemy->OnCollision();
-	  	}
-	  	
-	  } else {
-	  	changeHitbox = false;//ヒットボックス色切り替え
-	  }
+		if (posAB <= (hitRadius + enemyRadius) * (hitRadius + enemyRadius)) {
+			changeHitbox = true; // ヒットボックス色切り替え
 
+			if (cheakPanchi == 1&& attackType==0) { // ここでパンチと敵の種類が合ってたら消すようにする
+				enemy->OnCollision();
+			}
+			if (cheakPanchi == 2 && attackType == 1) { // ここでパンチと敵の種類が合ってたら消すようにする
+				enemy->OnCollision();
+			}
+
+		} else {
+			changeHitbox = false; // ヒットボックス色切り替え
+		}
 	}
-
 }
 
-void GameScene::EnemySpawn() { 
+void GameScene::EnemySpawn() {
 	Enemy* enemy = new Enemy();
-	//初期化
+	// 初期化
 	enemy->Initialize(model_);
-	//リストに登録
+	int moveType = (rand() % 3);
+	int attackType = (rand() % 3);
+
+	enemy->SetType(moveType, attackType);
+
+	// リストに登録
 	enemys_.push_back(enemy);
 }
 
 void GameScene::RandSpawn() {
 	// 敵キャラの更新
-	for (Enemy* enemy : enemys_) {
-		if (enemy->IsDead()) {
-		number = static_cast<float>(rand());
-		number = static_cast<float>(rand() % 10 + 1);
-
-		SpawnTime++;
-
-		if (SpawnTime > 50 && number == 1) {
-			EnemySpawn();
-			SpawnTime = 0;
-
-			// デスフラグ
-			enemys_.remove(enemy);
-
-			break;
-		}
-		}
+	SpawnTime++;
+	if (SpawnTime > 50) {
+		EnemySpawn();
+		SpawnTime = 0;
 	}
 }
