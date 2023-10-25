@@ -65,7 +65,7 @@ void Player::Update() {
 	//長押ししているときのモーション
 	if (panchiFlag == true) {
 	 //溜めているときの腕の速度
-	 Vector3 charge = {0.0f, -0.2f, 0.0f};
+	 Vector3 charge = {0.0f, -0.04f, 0.0f};
 	 // 手が下に行き過ぎないようにするif文
 	 if (worldTransform_.translation_.y <= -19.0f) {
 			charge = {0.0f, 0.0f, 0.0f};
