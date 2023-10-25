@@ -15,9 +15,9 @@ void Enemy::Initialize(Model* model) { // 初期化
 	// スケール
 	Vector3 Scale = {4, 4, 4};
 	worldTransform_.scale_ = Scale;
-	textureHandle_[0] = TextureManager::Load("resources/Enemy.png");
-	textureHandle_[1] = TextureManager::Load("resources/Green.png");
-	textureHandle_[2] = TextureManager::Load("resources/Pink.png");
+	textureHandle_[0] = TextureManager::Load("resources/WoodBox.png");
+	textureHandle_[1] = TextureManager::Load("resources/iron.png");
+	textureHandle_[2] = TextureManager::Load("resources/TNT.png");
 	isDead_ = false;
 }
 

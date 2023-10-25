@@ -49,4 +49,10 @@ private: // メンバ変数
 
 	// スプライト
 	Sprite* spriteTitle_ = nullptr;
+	Sprite* spriteLule_ = nullptr;
+	
+
+	//ルール
+	bool isLule = false;
+
 };
